@@ -1,6 +1,18 @@
 {
-  "name": "medbridge-openapi-client",
-  "private": true,
+  "name": "@drawbridge-systems/openapi-client",
   "version": "0.1.0",
-  "type": "module"
+  "type": "module",
+  "main": "./typescript-client/index.ts",
+  "types": "./typescript-client/index.ts",
+  "exports": {
+    ".": "./typescript-client/index.ts",
+    "./typescript-client": "./typescript-client/index.ts",
+    "./typescript-client/*": "./typescript-client/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "typescript-client",
+    "README.md"
+  ],
+  "sideEffects": false
 }
