@@ -1,4 +1,4 @@
-# MedBridge OpenAPI Client
+# DrawBridge OpenAPI Client
 
 This directory is the standalone home for generated API clients.
 
