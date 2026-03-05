@@ -51,7 +51,7 @@ export interface AuthApiInterface {
     createSessionRequestOpts(requestParameters: CreateSessionOperationRequest): Promise<runtime.RequestOpts>;
 
     /**
-     * Exchanges credentials or external proof for an access token.
+     * 
      * @summary Start session
      * @param {CreateSessionRequest} createSessionRequest 
      * @param {*} [options] Override http request option.
@@ -61,7 +61,6 @@ export interface AuthApiInterface {
     createSessionRaw(requestParameters: CreateSessionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateSessionResponse>>;
 
     /**
-     * Exchanges credentials or external proof for an access token.
      * Start session
      */
     createSession(requestParameters: CreateSessionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateSessionResponse>;
@@ -74,7 +73,7 @@ export interface AuthApiInterface {
     getMeRequestOpts(): Promise<runtime.RequestOpts>;
 
     /**
-     * Returns caller identity and active tenant-scoped authorization context.
+     * 
      * @summary Current caller context
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -83,7 +82,6 @@ export interface AuthApiInterface {
     getMeRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallerContext>>;
 
     /**
-     * Returns caller identity and active tenant-scoped authorization context.
      * Current caller context
      */
     getMe(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallerContext>;
@@ -113,7 +111,7 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
 
-        let urlPath = `/api/v1/auth/session`;
+        let urlPath = `/v1/auth/session`;
 
         return {
             path: urlPath,
@@ -125,7 +123,6 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
     }
 
     /**
-     * Exchanges credentials or external proof for an access token.
      * Start session
      */
     async createSessionRaw(requestParameters: CreateSessionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateSessionResponse>> {
@@ -136,7 +133,6 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
     }
 
     /**
-     * Exchanges credentials or external proof for an access token.
      * Start session
      */
     async createSession(requestParameters: CreateSessionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateSessionResponse> {
@@ -161,7 +157,7 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
             }
         }
 
-        let urlPath = `/api/v1/auth/me`;
+        let urlPath = `/v1/auth/me`;
 
         return {
             path: urlPath,
@@ -172,7 +168,6 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
     }
 
     /**
-     * Returns caller identity and active tenant-scoped authorization context.
      * Current caller context
      */
     async getMeRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CallerContext>> {
@@ -183,7 +178,6 @@ export class AuthApi extends runtime.BaseAPI implements AuthApiInterface {
     }
 
     /**
-     * Returns caller identity and active tenant-scoped authorization context.
      * Current caller context
      */
     async getMe(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CallerContext> {

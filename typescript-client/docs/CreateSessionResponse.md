@@ -19,7 +19,7 @@ import type { CreateSessionResponse } from ''
 // TODO: Update the object below with actual values
 const example = {
   "access_token": null,
-  "token_type": Bearer,
+  "token_type": null,
   "expires_in_seconds": null,
   "caller": null,
 } satisfies CreateSessionResponse

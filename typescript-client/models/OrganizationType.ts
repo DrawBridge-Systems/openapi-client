@@ -18,9 +18,9 @@
  * @export
  */
 export const OrganizationType = {
+    Hospital: 'hospital',
     Vendor: 'vendor',
     HealthSystem: 'health_system',
-    Hospital: 'hospital',
     Other: 'other'
 } as const;
 export type OrganizationType = typeof OrganizationType[keyof typeof OrganizationType];

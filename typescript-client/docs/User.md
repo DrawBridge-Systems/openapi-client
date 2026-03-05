@@ -11,10 +11,10 @@ Name | Type
 `first_name` | string
 `last_name` | string
 `phone_number` | string
-`status` | [UserStatus](UserStatus.md)
 `date_added` | Date
 `date_updated` | Date
-`persona` | string
+`status` | [UserStatus](UserStatus.md)
+`persona` | [UserPersona](UserPersona.md)
 
 ## Example
 
@@ -28,9 +28,9 @@ const example = {
   "first_name": null,
   "last_name": null,
   "phone_number": null,
-  "status": null,
   "date_added": null,
   "date_updated": null,
+  "status": null,
   "persona": null,
 } satisfies User
 

@@ -6,8 +6,8 @@
 
 Name | Type
 ------------ | -------------
-`email` | string
 `user_id` | string
+`email` | string
 `password` | string
 
 ## Example
@@ -17,8 +17,8 @@ import type { CreateSessionRequest } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "email": null,
   "user_id": null,
+  "email": null,
   "password": null,
 } satisfies CreateSessionRequest
 

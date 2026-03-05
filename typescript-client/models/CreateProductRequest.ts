@@ -24,26 +24,25 @@ export interface CreateProductRequest {
      * @type {string}
      * @memberof CreateProductRequest
      */
-    vendor_organization_id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateProductRequest
-     */
     name: string;
     /**
      * 
      * @type {string}
      * @memberof CreateProductRequest
      */
-    description?: string | null;
+    description?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProductRequest
+     */
+    vendor_org_id?: string;
 }
 
 /**
  * Check if a given object implements the CreateProductRequest interface.
  */
 export function instanceOfCreateProductRequest(value: object): value is CreateProductRequest {
-    if (!('vendor_organization_id' in value) || value['vendor_organization_id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     return true;
 }
@@ -58,9 +57,9 @@ export function CreateProductRequestFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'vendor_organization_id': json['vendor_organization_id'],
         'name': json['name'],
         'description': json['description'] == null ? undefined : json['description'],
+        'vendor_org_id': json['vendor_org_id'] == null ? undefined : json['vendor_org_id'],
     };
 }
 
@@ -75,9 +74,9 @@ export function CreateProductRequestToJSONTyped(value?: CreateProductRequest | n
 
     return {
         
-        'vendor_organization_id': value['vendor_organization_id'],
         'name': value['name'],
         'description': value['description'],
+        'vendor_org_id': value['vendor_org_id'],
     };
 }
 

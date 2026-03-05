@@ -16,12 +16,18 @@
 import * as runtime from '../runtime';
 import type {
   AcceptInviteRequest,
+  CreateInviteRequest,
+  CreateInviteResponse,
   ErrorResponse,
   User,
 } from '../models/index';
 import {
     AcceptInviteRequestFromJSON,
     AcceptInviteRequestToJSON,
+    CreateInviteRequestFromJSON,
+    CreateInviteRequestToJSON,
+    CreateInviteResponseFromJSON,
+    CreateInviteResponseToJSON,
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
     UserFromJSON,
@@ -30,6 +36,10 @@ import {
 
 export interface AcceptUserInviteRequest {
     acceptInviteRequest: AcceptInviteRequest;
+}
+
+export interface CreateUserInviteRequest {
+    createInviteRequest: CreateInviteRequest;
 }
 
 export interface GetUserByIdRequest {
@@ -65,6 +75,29 @@ export interface UsersApiInterface {
      * Accept invite and create credentials
      */
     acceptUserInvite(requestParameters: AcceptUserInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<User>;
+
+    /**
+     * Creates request options for createUserInvite without sending the request
+     * @param {CreateInviteRequest} createInviteRequest 
+     * @throws {RequiredError}
+     * @memberof UsersApiInterface
+     */
+    createUserInviteRequestOpts(requestParameters: CreateUserInviteRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Create user invite
+     * @param {CreateInviteRequest} createInviteRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersApiInterface
+     */
+    createUserInviteRaw(requestParameters: CreateUserInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateInviteResponse>>;
+
+    /**
+     * Create user invite
+     */
+    createUserInvite(requestParameters: CreateUserInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateInviteResponse>;
 
     /**
      * Creates request options for getUserById without sending the request
@@ -114,7 +147,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
         headerParameters['Content-Type'] = 'application/json';
 
 
-        let urlPath = `/api/v1/users/invites/accept`;
+        let urlPath = `/v1/users/invites/accept`;
 
         return {
             path: urlPath,
@@ -144,6 +177,61 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
     }
 
     /**
+     * Creates request options for createUserInvite without sending the request
+     */
+    async createUserInviteRequestOpts(requestParameters: CreateUserInviteRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['createInviteRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createInviteRequest',
+                'Required parameter "createInviteRequest" was null or undefined when calling createUserInvite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/users/invites`;
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateInviteRequestToJSON(requestParameters['createInviteRequest']),
+        };
+    }
+
+    /**
+     * Create user invite
+     */
+    async createUserInviteRaw(requestParameters: CreateUserInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateInviteResponse>> {
+        const requestOptions = await this.createUserInviteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateInviteResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create user invite
+     */
+    async createUserInvite(requestParameters: CreateUserInviteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateInviteResponse> {
+        const response = await this.createUserInviteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for getUserById without sending the request
      */
     async getUserByIdRequestOpts(requestParameters: GetUserByIdRequest): Promise<runtime.RequestOpts> {
@@ -167,7 +255,7 @@ export class UsersApi extends runtime.BaseAPI implements UsersApiInterface {
             }
         }
 
-        let urlPath = `/api/v1/users/{id}`;
+        let urlPath = `/v1/users/{id}`;
         urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
 
         return {

@@ -1,11 +1,11 @@
 # AuthApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.bridge.med*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createSession**](AuthApi.md#createsessionoperation) | **POST** /api/v1/auth/session | Start session |
-| [**getMe**](AuthApi.md#getme) | **GET** /api/v1/auth/me | Current caller context |
+| [**createSession**](AuthApi.md#createsessionoperation) | **POST** /v1/auth/session | Start session |
+| [**getMe**](AuthApi.md#getme) | **GET** /v1/auth/me | Current caller context |
 
 
 
@@ -14,8 +14,6 @@ All URIs are relative to *http://localhost:8080*
 > CreateSessionResponse createSession(createSessionRequest)
 
 Start session
-
-Exchanges credentials or external proof for an access token.
 
 ### Example
 
@@ -72,7 +70,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Session created |  -  |
+| **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
@@ -82,8 +82,6 @@ No authorization required
 > CallerContext getMe()
 
 Current caller context
-
-Returns caller identity and active tenant-scoped authorization context.
 
 ### Example
 
@@ -137,6 +135,7 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 | **200** | Caller context |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

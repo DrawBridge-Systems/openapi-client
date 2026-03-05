@@ -1,26 +1,30 @@
 
-# CreateProductRequest
+# OrganizationUser
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`name` | string
-`description` | string
-`vendor_org_id` | string
+`id` | string
+`organization_id` | string
+`user_id` | string
+`date_added` | Date
+`date_updated` | Date
 
 ## Example
 
 ```typescript
-import type { CreateProductRequest } from ''
+import type { OrganizationUser } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "name": null,
-  "description": null,
-  "vendor_org_id": null,
-} satisfies CreateProductRequest
+  "id": null,
+  "organization_id": null,
+  "user_id": null,
+  "date_added": null,
+  "date_updated": null,
+} satisfies OrganizationUser
 
 console.log(example)
 
@@ -29,7 +33,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as CreateProductRequest
+const exampleParsed = JSON.parse(exampleJSON) as OrganizationUser
 console.log(exampleParsed)
 ```
 

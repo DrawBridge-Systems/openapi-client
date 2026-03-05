@@ -6,7 +6,7 @@
 
 Name | Type
 ------------ | -------------
-`error` | [ErrorResponseError](ErrorResponseError.md)
+`error` | string
 
 ## Example
 

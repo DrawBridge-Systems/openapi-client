@@ -15,49 +15,65 @@
 
 import * as runtime from '../runtime';
 import type {
+  CreateOrganizationRelationRequest,
   CreateOrganizationRequest,
+  CreateOrganizationUserRequest,
   ErrorResponse,
-  ListOrganizationsResponse,
-  OnboardingState,
   Organization,
-  OrganizationType,
-  PatchOrganizationRequest,
+  OrganizationRelation,
+  OrganizationUser,
 } from '../models/index';
 import {
+    CreateOrganizationRelationRequestFromJSON,
+    CreateOrganizationRelationRequestToJSON,
     CreateOrganizationRequestFromJSON,
     CreateOrganizationRequestToJSON,
+    CreateOrganizationUserRequestFromJSON,
+    CreateOrganizationUserRequestToJSON,
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
-    ListOrganizationsResponseFromJSON,
-    ListOrganizationsResponseToJSON,
-    OnboardingStateFromJSON,
-    OnboardingStateToJSON,
     OrganizationFromJSON,
     OrganizationToJSON,
-    OrganizationTypeFromJSON,
-    OrganizationTypeToJSON,
-    PatchOrganizationRequestFromJSON,
-    PatchOrganizationRequestToJSON,
+    OrganizationRelationFromJSON,
+    OrganizationRelationToJSON,
+    OrganizationUserFromJSON,
+    OrganizationUserToJSON,
 } from '../models/index';
 
 export interface CreateOrganizationOperationRequest {
     createOrganizationRequest: CreateOrganizationRequest;
 }
 
+export interface CreateOrganizationRelationOperationRequest {
+    id: string;
+    createOrganizationRelationRequest: CreateOrganizationRelationRequest;
+}
+
+export interface CreateOrganizationUserOperationRequest {
+    id: string;
+    createOrganizationUserRequest: CreateOrganizationUserRequest;
+}
+
+export interface DeleteOrganizationRelationRequest {
+    id: string;
+    childOrganizationID: string;
+}
+
+export interface DeleteOrganizationUserRequest {
+    id: string;
+    userID: string;
+}
+
 export interface GetOrganizationRequest {
-    organizationId: string;
+    id: string;
 }
 
-export interface ListOrganizationsRequest {
-    orgType?: OrganizationType;
-    onboardingState?: OnboardingState;
-    page?: number;
-    pageSize?: number;
+export interface ListOrganizationRelationsRequest {
+    id: string;
 }
 
-export interface PatchOrganizationOperationRequest {
-    organizationId: string;
-    patchOrganizationRequest: PatchOrganizationRequest;
+export interface ListOrganizationUsersRequest {
+    id: string;
 }
 
 /**
@@ -91,8 +107,108 @@ export interface OrganizationsApiInterface {
     createOrganization(requestParameters: CreateOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Organization>;
 
     /**
+     * Creates request options for createOrganizationRelation without sending the request
+     * @param {string} id 
+     * @param {CreateOrganizationRelationRequest} createOrganizationRelationRequest 
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    createOrganizationRelationRequestOpts(requestParameters: CreateOrganizationRelationOperationRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Create organization relation
+     * @param {string} id 
+     * @param {CreateOrganizationRelationRequest} createOrganizationRelationRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    createOrganizationRelationRaw(requestParameters: CreateOrganizationRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OrganizationRelation>>;
+
+    /**
+     * Create organization relation
+     */
+    createOrganizationRelation(requestParameters: CreateOrganizationRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OrganizationRelation>;
+
+    /**
+     * Creates request options for createOrganizationUser without sending the request
+     * @param {string} id 
+     * @param {CreateOrganizationUserRequest} createOrganizationUserRequest 
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    createOrganizationUserRequestOpts(requestParameters: CreateOrganizationUserOperationRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Add user to organization
+     * @param {string} id 
+     * @param {CreateOrganizationUserRequest} createOrganizationUserRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    createOrganizationUserRaw(requestParameters: CreateOrganizationUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OrganizationUser>>;
+
+    /**
+     * Add user to organization
+     */
+    createOrganizationUser(requestParameters: CreateOrganizationUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OrganizationUser>;
+
+    /**
+     * Creates request options for deleteOrganizationRelation without sending the request
+     * @param {string} id 
+     * @param {string} childOrganizationID 
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    deleteOrganizationRelationRequestOpts(requestParameters: DeleteOrganizationRelationRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Delete organization relation
+     * @param {string} id 
+     * @param {string} childOrganizationID 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    deleteOrganizationRelationRaw(requestParameters: DeleteOrganizationRelationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Delete organization relation
+     */
+    deleteOrganizationRelation(requestParameters: DeleteOrganizationRelationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * Creates request options for deleteOrganizationUser without sending the request
+     * @param {string} id 
+     * @param {string} userID 
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    deleteOrganizationUserRequestOpts(requestParameters: DeleteOrganizationUserRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Remove user from organization
+     * @param {string} id 
+     * @param {string} userID 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    deleteOrganizationUserRaw(requestParameters: DeleteOrganizationUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Remove user from organization
+     */
+    deleteOrganizationUser(requestParameters: DeleteOrganizationUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
      * Creates request options for getOrganization without sending the request
-     * @param {string} organizationId 
+     * @param {string} id 
      * @throws {RequiredError}
      * @memberof OrganizationsApiInterface
      */
@@ -101,7 +217,7 @@ export interface OrganizationsApiInterface {
     /**
      * 
      * @summary Get organization
-     * @param {string} organizationId 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrganizationsApiInterface
@@ -114,58 +230,50 @@ export interface OrganizationsApiInterface {
     getOrganization(requestParameters: GetOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Organization>;
 
     /**
-     * Creates request options for listOrganizations without sending the request
-     * @param {OrganizationType} [orgType] 
-     * @param {OnboardingState} [onboardingState] 
-     * @param {number} [page] 
-     * @param {number} [pageSize] 
+     * Creates request options for listOrganizationRelations without sending the request
+     * @param {string} id 
      * @throws {RequiredError}
      * @memberof OrganizationsApiInterface
      */
-    listOrganizationsRequestOpts(requestParameters: ListOrganizationsRequest): Promise<runtime.RequestOpts>;
+    listOrganizationRelationsRequestOpts(requestParameters: ListOrganizationRelationsRequest): Promise<runtime.RequestOpts>;
 
     /**
      * 
-     * @summary List organizations
-     * @param {OrganizationType} [orgType] 
-     * @param {OnboardingState} [onboardingState] 
-     * @param {number} [page] 
-     * @param {number} [pageSize] 
+     * @summary List organization relations
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrganizationsApiInterface
      */
-    listOrganizationsRaw(requestParameters: ListOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListOrganizationsResponse>>;
+    listOrganizationRelationsRaw(requestParameters: ListOrganizationRelationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<OrganizationRelation>>>;
 
     /**
-     * List organizations
+     * List organization relations
      */
-    listOrganizations(requestParameters: ListOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListOrganizationsResponse>;
+    listOrganizationRelations(requestParameters: ListOrganizationRelationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OrganizationRelation>>;
 
     /**
-     * Creates request options for patchOrganization without sending the request
-     * @param {string} organizationId 
-     * @param {PatchOrganizationRequest} patchOrganizationRequest 
+     * Creates request options for listOrganizationUsers without sending the request
+     * @param {string} id 
      * @throws {RequiredError}
      * @memberof OrganizationsApiInterface
      */
-    patchOrganizationRequestOpts(requestParameters: PatchOrganizationOperationRequest): Promise<runtime.RequestOpts>;
+    listOrganizationUsersRequestOpts(requestParameters: ListOrganizationUsersRequest): Promise<runtime.RequestOpts>;
 
     /**
      * 
-     * @summary Update organization
-     * @param {string} organizationId 
-     * @param {PatchOrganizationRequest} patchOrganizationRequest 
+     * @summary List organization users
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OrganizationsApiInterface
      */
-    patchOrganizationRaw(requestParameters: PatchOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Organization>>;
+    listOrganizationUsersRaw(requestParameters: ListOrganizationUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<OrganizationUser>>>;
 
     /**
-     * Update organization
+     * List organization users
      */
-    patchOrganization(requestParameters: PatchOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Organization>;
+    listOrganizationUsers(requestParameters: ListOrganizationUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OrganizationUser>>;
 
 }
 
@@ -200,7 +308,7 @@ export class OrganizationsApi extends runtime.BaseAPI implements OrganizationsAp
             }
         }
 
-        let urlPath = `/api/v1/organizations`;
+        let urlPath = `/v1/organizations`;
 
         return {
             path: urlPath,
@@ -230,13 +338,146 @@ export class OrganizationsApi extends runtime.BaseAPI implements OrganizationsAp
     }
 
     /**
-     * Creates request options for getOrganization without sending the request
+     * Creates request options for createOrganizationRelation without sending the request
      */
-    async getOrganizationRequestOpts(requestParameters: GetOrganizationRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['organizationId'] == null) {
+    async createOrganizationRelationRequestOpts(requestParameters: CreateOrganizationRelationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
-                'organizationId',
-                'Required parameter "organizationId" was null or undefined when calling getOrganization().'
+                'id',
+                'Required parameter "id" was null or undefined when calling createOrganizationRelation().'
+            );
+        }
+
+        if (requestParameters['createOrganizationRelationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createOrganizationRelationRequest',
+                'Required parameter "createOrganizationRelationRequest" was null or undefined when calling createOrganizationRelation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/organizations/{id}/relations`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateOrganizationRelationRequestToJSON(requestParameters['createOrganizationRelationRequest']),
+        };
+    }
+
+    /**
+     * Create organization relation
+     */
+    async createOrganizationRelationRaw(requestParameters: CreateOrganizationRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OrganizationRelation>> {
+        const requestOptions = await this.createOrganizationRelationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OrganizationRelationFromJSON(jsonValue));
+    }
+
+    /**
+     * Create organization relation
+     */
+    async createOrganizationRelation(requestParameters: CreateOrganizationRelationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OrganizationRelation> {
+        const response = await this.createOrganizationRelationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createOrganizationUser without sending the request
+     */
+    async createOrganizationUserRequestOpts(requestParameters: CreateOrganizationUserOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling createOrganizationUser().'
+            );
+        }
+
+        if (requestParameters['createOrganizationUserRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createOrganizationUserRequest',
+                'Required parameter "createOrganizationUserRequest" was null or undefined when calling createOrganizationUser().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/organizations/{id}/users`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateOrganizationUserRequestToJSON(requestParameters['createOrganizationUserRequest']),
+        };
+    }
+
+    /**
+     * Add user to organization
+     */
+    async createOrganizationUserRaw(requestParameters: CreateOrganizationUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OrganizationUser>> {
+        const requestOptions = await this.createOrganizationUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OrganizationUserFromJSON(jsonValue));
+    }
+
+    /**
+     * Add user to organization
+     */
+    async createOrganizationUser(requestParameters: CreateOrganizationUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OrganizationUser> {
+        const response = await this.createOrganizationUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for deleteOrganizationRelation without sending the request
+     */
+    async deleteOrganizationRelationRequestOpts(requestParameters: DeleteOrganizationRelationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteOrganizationRelation().'
+            );
+        }
+
+        if (requestParameters['childOrganizationID'] == null) {
+            throw new runtime.RequiredError(
+                'childOrganizationID',
+                'Required parameter "childOrganizationID" was null or undefined when calling deleteOrganizationRelation().'
             );
         }
 
@@ -253,8 +494,121 @@ export class OrganizationsApi extends runtime.BaseAPI implements OrganizationsAp
             }
         }
 
-        let urlPath = `/api/v1/organizations/{organizationId}`;
-        urlPath = urlPath.replace(`{${"organizationId"}}`, encodeURIComponent(String(requestParameters['organizationId'])));
+        let urlPath = `/v1/organizations/{id}/relations/{childOrganizationID}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        urlPath = urlPath.replace(`{${"childOrganizationID"}}`, encodeURIComponent(String(requestParameters['childOrganizationID'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete organization relation
+     */
+    async deleteOrganizationRelationRaw(requestParameters: DeleteOrganizationRelationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteOrganizationRelationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete organization relation
+     */
+    async deleteOrganizationRelation(requestParameters: DeleteOrganizationRelationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteOrganizationRelationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for deleteOrganizationUser without sending the request
+     */
+    async deleteOrganizationUserRequestOpts(requestParameters: DeleteOrganizationUserRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteOrganizationUser().'
+            );
+        }
+
+        if (requestParameters['userID'] == null) {
+            throw new runtime.RequiredError(
+                'userID',
+                'Required parameter "userID" was null or undefined when calling deleteOrganizationUser().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/organizations/{id}/users/{userID}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        urlPath = urlPath.replace(`{${"userID"}}`, encodeURIComponent(String(requestParameters['userID'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Remove user from organization
+     */
+    async deleteOrganizationUserRaw(requestParameters: DeleteOrganizationUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteOrganizationUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Remove user from organization
+     */
+    async deleteOrganizationUser(requestParameters: DeleteOrganizationUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteOrganizationUserRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for getOrganization without sending the request
+     */
+    async getOrganizationRequestOpts(requestParameters: GetOrganizationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getOrganization().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/organizations/{id}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
 
         return {
             path: urlPath,
@@ -283,26 +637,17 @@ export class OrganizationsApi extends runtime.BaseAPI implements OrganizationsAp
     }
 
     /**
-     * Creates request options for listOrganizations without sending the request
+     * Creates request options for listOrganizationRelations without sending the request
      */
-    async listOrganizationsRequestOpts(requestParameters: ListOrganizationsRequest): Promise<runtime.RequestOpts> {
+    async listOrganizationRelationsRequestOpts(requestParameters: ListOrganizationRelationsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling listOrganizationRelations().'
+            );
+        }
+
         const queryParameters: any = {};
-
-        if (requestParameters['orgType'] != null) {
-            queryParameters['org_type'] = requestParameters['orgType'];
-        }
-
-        if (requestParameters['onboardingState'] != null) {
-            queryParameters['onboarding_state'] = requestParameters['onboardingState'];
-        }
-
-        if (requestParameters['page'] != null) {
-            queryParameters['page'] = requestParameters['page'];
-        }
-
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['page_size'] = requestParameters['pageSize'];
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -315,7 +660,8 @@ export class OrganizationsApi extends runtime.BaseAPI implements OrganizationsAp
             }
         }
 
-        let urlPath = `/api/v1/organizations`;
+        let urlPath = `/v1/organizations/{id}/relations`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
 
         return {
             path: urlPath,
@@ -326,46 +672,37 @@ export class OrganizationsApi extends runtime.BaseAPI implements OrganizationsAp
     }
 
     /**
-     * List organizations
+     * List organization relations
      */
-    async listOrganizationsRaw(requestParameters: ListOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListOrganizationsResponse>> {
-        const requestOptions = await this.listOrganizationsRequestOpts(requestParameters);
+    async listOrganizationRelationsRaw(requestParameters: ListOrganizationRelationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<OrganizationRelation>>> {
+        const requestOptions = await this.listOrganizationRelationsRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListOrganizationsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OrganizationRelationFromJSON));
     }
 
     /**
-     * List organizations
+     * List organization relations
      */
-    async listOrganizations(requestParameters: ListOrganizationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListOrganizationsResponse> {
-        const response = await this.listOrganizationsRaw(requestParameters, initOverrides);
+    async listOrganizationRelations(requestParameters: ListOrganizationRelationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OrganizationRelation>> {
+        const response = await this.listOrganizationRelationsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Creates request options for patchOrganization without sending the request
+     * Creates request options for listOrganizationUsers without sending the request
      */
-    async patchOrganizationRequestOpts(requestParameters: PatchOrganizationOperationRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['organizationId'] == null) {
+    async listOrganizationUsersRequestOpts(requestParameters: ListOrganizationUsersRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
-                'organizationId',
-                'Required parameter "organizationId" was null or undefined when calling patchOrganization().'
-            );
-        }
-
-        if (requestParameters['patchOrganizationRequest'] == null) {
-            throw new runtime.RequiredError(
-                'patchOrganizationRequest',
-                'Required parameter "patchOrganizationRequest" was null or undefined when calling patchOrganization().'
+                'id',
+                'Required parameter "id" was null or undefined when calling listOrganizationUsers().'
             );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -376,33 +713,32 @@ export class OrganizationsApi extends runtime.BaseAPI implements OrganizationsAp
             }
         }
 
-        let urlPath = `/api/v1/organizations/{organizationId}`;
-        urlPath = urlPath.replace(`{${"organizationId"}}`, encodeURIComponent(String(requestParameters['organizationId'])));
+        let urlPath = `/v1/organizations/{id}/users`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
 
         return {
             path: urlPath,
-            method: 'PATCH',
+            method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: PatchOrganizationRequestToJSON(requestParameters['patchOrganizationRequest']),
         };
     }
 
     /**
-     * Update organization
+     * List organization users
      */
-    async patchOrganizationRaw(requestParameters: PatchOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Organization>> {
-        const requestOptions = await this.patchOrganizationRequestOpts(requestParameters);
+    async listOrganizationUsersRaw(requestParameters: ListOrganizationUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<OrganizationUser>>> {
+        const requestOptions = await this.listOrganizationUsersRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => OrganizationFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OrganizationUserFromJSON));
     }
 
     /**
-     * Update organization
+     * List organization users
      */
-    async patchOrganization(requestParameters: PatchOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Organization> {
-        const response = await this.patchOrganizationRaw(requestParameters, initOverrides);
+    async listOrganizationUsers(requestParameters: ListOrganizationUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OrganizationUser>> {
+        const response = await this.listOrganizationUsersRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

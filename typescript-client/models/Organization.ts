@@ -48,6 +48,18 @@ export interface Organization {
     name: string;
     /**
      * 
+     * @type {Date}
+     * @memberof Organization
+     */
+    date_added: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Organization
+     */
+    date_updated?: Date | null;
+    /**
+     * 
      * @type {OrganizationType}
      * @memberof Organization
      */
@@ -64,18 +76,6 @@ export interface Organization {
      * @memberof Organization
      */
     onboarded_at?: Date | null;
-    /**
-     * 
-     * @type {Date}
-     * @memberof Organization
-     */
-    date_added: Date;
-    /**
-     * 
-     * @type {Date}
-     * @memberof Organization
-     */
-    date_updated?: Date | null;
 }
 
 
@@ -86,9 +86,9 @@ export interface Organization {
 export function instanceOfOrganization(value: object): value is Organization {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('date_added' in value) || value['date_added'] === undefined) return false;
     if (!('org_type' in value) || value['org_type'] === undefined) return false;
     if (!('onboarding_status' in value) || value['onboarding_status'] === undefined) return false;
-    if (!('date_added' in value) || value['date_added'] === undefined) return false;
     return true;
 }
 
@@ -104,11 +104,11 @@ export function OrganizationFromJSONTyped(json: any, ignoreDiscriminator: boolea
         
         'id': json['id'],
         'name': json['name'],
+        'date_added': (new Date(json['date_added'])),
+        'date_updated': json['date_updated'] == null ? undefined : (new Date(json['date_updated'])),
         'org_type': OrganizationTypeFromJSON(json['org_type']),
         'onboarding_status': OnboardingStateFromJSON(json['onboarding_status']),
         'onboarded_at': json['onboarded_at'] == null ? undefined : (new Date(json['onboarded_at'])),
-        'date_added': (new Date(json['date_added'])),
-        'date_updated': json['date_updated'] == null ? undefined : (new Date(json['date_updated'])),
     };
 }
 
@@ -125,11 +125,11 @@ export function OrganizationToJSONTyped(value?: Organization | null, ignoreDiscr
         
         'id': value['id'],
         'name': value['name'],
+        'date_added': value['date_added'].toISOString(),
+        'date_updated': value['date_updated'] == null ? value['date_updated'] : value['date_updated'].toISOString(),
         'org_type': OrganizationTypeToJSON(value['org_type']),
         'onboarding_status': OnboardingStateToJSON(value['onboarding_status']),
         'onboarded_at': value['onboarded_at'] == null ? value['onboarded_at'] : value['onboarded_at'].toISOString(),
-        'date_added': value['date_added'].toISOString(),
-        'date_updated': value['date_updated'] == null ? value['date_updated'] : value['date_updated'].toISOString(),
     };
 }
 

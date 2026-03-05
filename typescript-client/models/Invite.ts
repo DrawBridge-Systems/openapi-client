@@ -20,97 +20,108 @@ import {
     UserPersonaToJSON,
     UserPersonaToJSONTyped,
 } from './UserPersona';
-import type { UserStatus } from './UserStatus';
-import {
-    UserStatusFromJSON,
-    UserStatusFromJSONTyped,
-    UserStatusToJSON,
-    UserStatusToJSONTyped,
-} from './UserStatus';
 
 /**
  * 
  * @export
- * @interface User
+ * @interface Invite
  */
-export interface User {
+export interface Invite {
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof Invite
      */
     id: string;
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof Invite
      */
     email: string;
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof Invite
      */
     first_name: string;
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof Invite
      */
     last_name: string;
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof Invite
      */
-    phone_number?: string | null;
+    phone_number?: string;
+    /**
+     * 
+     * @type {UserPersona}
+     * @memberof Invite
+     */
+    persona: UserPersona;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invite
+     */
+    organization_id?: string | null;
     /**
      * 
      * @type {Date}
-     * @memberof User
+     * @memberof Invite
+     */
+    expires_at: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Invite
+     */
+    consumed_at?: Date | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Invite
+     */
+    consumed_by_user_id?: string | null;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Invite
      */
     date_added: Date;
     /**
      * 
      * @type {Date}
-     * @memberof User
+     * @memberof Invite
      */
     date_updated?: Date | null;
-    /**
-     * 
-     * @type {UserStatus}
-     * @memberof User
-     */
-    status: UserStatus;
-    /**
-     * 
-     * @type {UserPersona}
-     * @memberof User
-     */
-    persona: UserPersona;
 }
 
 
 
 /**
- * Check if a given object implements the User interface.
+ * Check if a given object implements the Invite interface.
  */
-export function instanceOfUser(value: object): value is User {
+export function instanceOfInvite(value: object): value is Invite {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('email' in value) || value['email'] === undefined) return false;
     if (!('first_name' in value) || value['first_name'] === undefined) return false;
     if (!('last_name' in value) || value['last_name'] === undefined) return false;
-    if (!('date_added' in value) || value['date_added'] === undefined) return false;
-    if (!('status' in value) || value['status'] === undefined) return false;
     if (!('persona' in value) || value['persona'] === undefined) return false;
+    if (!('expires_at' in value) || value['expires_at'] === undefined) return false;
+    if (!('date_added' in value) || value['date_added'] === undefined) return false;
     return true;
 }
 
-export function UserFromJSON(json: any): User {
-    return UserFromJSONTyped(json, false);
+export function InviteFromJSON(json: any): Invite {
+    return InviteFromJSONTyped(json, false);
 }
 
-export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User {
+export function InviteFromJSONTyped(json: any, ignoreDiscriminator: boolean): Invite {
     if (json == null) {
         return json;
     }
@@ -121,18 +132,21 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
         'first_name': json['first_name'],
         'last_name': json['last_name'],
         'phone_number': json['phone_number'] == null ? undefined : json['phone_number'],
+        'persona': UserPersonaFromJSON(json['persona']),
+        'organization_id': json['organization_id'] == null ? undefined : json['organization_id'],
+        'expires_at': (new Date(json['expires_at'])),
+        'consumed_at': json['consumed_at'] == null ? undefined : (new Date(json['consumed_at'])),
+        'consumed_by_user_id': json['consumed_by_user_id'] == null ? undefined : json['consumed_by_user_id'],
         'date_added': (new Date(json['date_added'])),
         'date_updated': json['date_updated'] == null ? undefined : (new Date(json['date_updated'])),
-        'status': UserStatusFromJSON(json['status']),
-        'persona': UserPersonaFromJSON(json['persona']),
     };
 }
 
-export function UserToJSON(json: any): User {
-    return UserToJSONTyped(json, false);
+export function InviteToJSON(json: any): Invite {
+    return InviteToJSONTyped(json, false);
 }
 
-export function UserToJSONTyped(value?: User | null, ignoreDiscriminator: boolean = false): any {
+export function InviteToJSONTyped(value?: Invite | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
@@ -144,10 +158,13 @@ export function UserToJSONTyped(value?: User | null, ignoreDiscriminator: boolea
         'first_name': value['first_name'],
         'last_name': value['last_name'],
         'phone_number': value['phone_number'],
+        'persona': UserPersonaToJSON(value['persona']),
+        'organization_id': value['organization_id'],
+        'expires_at': value['expires_at'].toISOString(),
+        'consumed_at': value['consumed_at'] == null ? value['consumed_at'] : value['consumed_at'].toISOString(),
+        'consumed_by_user_id': value['consumed_by_user_id'],
         'date_added': value['date_added'].toISOString(),
         'date_updated': value['date_updated'] == null ? value['date_updated'] : value['date_updated'].toISOString(),
-        'status': UserStatusToJSON(value['status']),
-        'persona': UserPersonaToJSON(value['persona']),
     };
 }
 

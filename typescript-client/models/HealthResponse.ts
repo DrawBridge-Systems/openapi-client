@@ -25,6 +25,12 @@ export interface HealthResponse {
      * @memberof HealthResponse
      */
     status: string;
+    /**
+     * 
+     * @type {{ [key: string]: string; }}
+     * @memberof HealthResponse
+     */
+    checks?: { [key: string]: string; };
 }
 
 /**
@@ -46,6 +52,7 @@ export function HealthResponseFromJSONTyped(json: any, ignoreDiscriminator: bool
     return {
         
         'status': json['status'],
+        'checks': json['checks'] == null ? undefined : json['checks'],
     };
 }
 
@@ -61,6 +68,7 @@ export function HealthResponseToJSONTyped(value?: HealthResponse | null, ignoreD
     return {
         
         'status': value['status'],
+        'checks': value['checks'],
     };
 }
 

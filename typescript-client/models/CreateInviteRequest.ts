@@ -20,134 +20,108 @@ import {
     UserPersonaToJSON,
     UserPersonaToJSONTyped,
 } from './UserPersona';
-import type { UserStatus } from './UserStatus';
-import {
-    UserStatusFromJSON,
-    UserStatusFromJSONTyped,
-    UserStatusToJSON,
-    UserStatusToJSONTyped,
-} from './UserStatus';
 
 /**
  * 
  * @export
- * @interface User
+ * @interface CreateInviteRequest
  */
-export interface User {
+export interface CreateInviteRequest {
     /**
      * 
      * @type {string}
-     * @memberof User
-     */
-    id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
+     * @memberof CreateInviteRequest
      */
     email: string;
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof CreateInviteRequest
      */
     first_name: string;
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof CreateInviteRequest
      */
     last_name: string;
     /**
      * 
      * @type {string}
-     * @memberof User
+     * @memberof CreateInviteRequest
      */
-    phone_number?: string | null;
-    /**
-     * 
-     * @type {Date}
-     * @memberof User
-     */
-    date_added: Date;
-    /**
-     * 
-     * @type {Date}
-     * @memberof User
-     */
-    date_updated?: Date | null;
-    /**
-     * 
-     * @type {UserStatus}
-     * @memberof User
-     */
-    status: UserStatus;
+    phone_number?: string;
     /**
      * 
      * @type {UserPersona}
-     * @memberof User
+     * @memberof CreateInviteRequest
      */
     persona: UserPersona;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateInviteRequest
+     */
+    organization_id?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateInviteRequest
+     */
+    expires_in_seconds?: number;
 }
 
 
 
 /**
- * Check if a given object implements the User interface.
+ * Check if a given object implements the CreateInviteRequest interface.
  */
-export function instanceOfUser(value: object): value is User {
-    if (!('id' in value) || value['id'] === undefined) return false;
+export function instanceOfCreateInviteRequest(value: object): value is CreateInviteRequest {
     if (!('email' in value) || value['email'] === undefined) return false;
     if (!('first_name' in value) || value['first_name'] === undefined) return false;
     if (!('last_name' in value) || value['last_name'] === undefined) return false;
-    if (!('date_added' in value) || value['date_added'] === undefined) return false;
-    if (!('status' in value) || value['status'] === undefined) return false;
     if (!('persona' in value) || value['persona'] === undefined) return false;
     return true;
 }
 
-export function UserFromJSON(json: any): User {
-    return UserFromJSONTyped(json, false);
+export function CreateInviteRequestFromJSON(json: any): CreateInviteRequest {
+    return CreateInviteRequestFromJSONTyped(json, false);
 }
 
-export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User {
+export function CreateInviteRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateInviteRequest {
     if (json == null) {
         return json;
     }
     return {
         
-        'id': json['id'],
         'email': json['email'],
         'first_name': json['first_name'],
         'last_name': json['last_name'],
         'phone_number': json['phone_number'] == null ? undefined : json['phone_number'],
-        'date_added': (new Date(json['date_added'])),
-        'date_updated': json['date_updated'] == null ? undefined : (new Date(json['date_updated'])),
-        'status': UserStatusFromJSON(json['status']),
         'persona': UserPersonaFromJSON(json['persona']),
+        'organization_id': json['organization_id'] == null ? undefined : json['organization_id'],
+        'expires_in_seconds': json['expires_in_seconds'] == null ? undefined : json['expires_in_seconds'],
     };
 }
 
-export function UserToJSON(json: any): User {
-    return UserToJSONTyped(json, false);
+export function CreateInviteRequestToJSON(json: any): CreateInviteRequest {
+    return CreateInviteRequestToJSONTyped(json, false);
 }
 
-export function UserToJSONTyped(value?: User | null, ignoreDiscriminator: boolean = false): any {
+export function CreateInviteRequestToJSONTyped(value?: CreateInviteRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'id': value['id'],
         'email': value['email'],
         'first_name': value['first_name'],
         'last_name': value['last_name'],
         'phone_number': value['phone_number'],
-        'date_added': value['date_added'].toISOString(),
-        'date_updated': value['date_updated'] == null ? value['date_updated'] : value['date_updated'].toISOString(),
-        'status': UserStatusToJSON(value['status']),
         'persona': UserPersonaToJSON(value['persona']),
+        'organization_id': value['organization_id'],
+        'expires_in_seconds': value['expires_in_seconds'],
     };
 }
 

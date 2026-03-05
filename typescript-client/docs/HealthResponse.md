@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `status` | string
+`checks` | { [key: string]: string; }
 
 ## Example
 
@@ -15,7 +16,8 @@ import type { HealthResponse } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "status": ok,
+  "status": null,
+  "checks": null,
 } satisfies HealthResponse
 
 console.log(example)

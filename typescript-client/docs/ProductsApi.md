@@ -1,15 +1,18 @@
 # ProductsApi
 
-All URIs are relative to *http://localhost:8080*
+All URIs are relative to *https://api.bridge.med*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createProduct**](ProductsApi.md#createproductoperation) | **POST** /api/v1/products | Create product |
-| [**deleteHospitalProduct**](ProductsApi.md#deletehospitalproduct) | **DELETE** /api/v1/hospitals/{hospitalId}/products/{productId} | Unlink product from hospital |
-| [**getProduct**](ProductsApi.md#getproduct) | **GET** /api/v1/products/{productId} | Get product |
-| [**listProducts**](ProductsApi.md#listproducts) | **GET** /api/v1/products | List products |
-| [**patchProduct**](ProductsApi.md#patchproductoperation) | **PATCH** /api/v1/products/{productId} | Update product |
-| [**putHospitalProduct**](ProductsApi.md#puthospitalproduct) | **PUT** /api/v1/hospitals/{hospitalId}/products/{productId} | Link product to hospital |
+| [**createProduct**](ProductsApi.md#createproductoperation) | **POST** /v1/products | Create product |
+| [**createProductOrganization**](ProductsApi.md#createproductorganizationoperation) | **POST** /v1/products/{id}/organizations | Add organization to product |
+| [**createProductUser**](ProductsApi.md#createproductuseroperation) | **POST** /v1/products/{id}/users | Add user to product |
+| [**deleteProductOrganization**](ProductsApi.md#deleteproductorganization) | **DELETE** /v1/products/{id}/organizations/{organizationID} | Remove organization from product |
+| [**deleteProductUser**](ProductsApi.md#deleteproductuser) | **DELETE** /v1/products/{id}/users/{userID} | Remove user from product |
+| [**getProduct**](ProductsApi.md#getproduct) | **GET** /v1/products/{id} | Get product |
+| [**listProductOrganizations**](ProductsApi.md#listproductorganizations) | **GET** /v1/products/{id}/organizations | List product organizations |
+| [**listProductUsers**](ProductsApi.md#listproductusers) | **GET** /v1/products/{id}/users | List product users |
+| [**listProducts**](ProductsApi.md#listproducts) | **GET** /v1/products | List products |
 
 
 
@@ -80,15 +83,16 @@ example().catch(console.error);
 | **201** | Product created |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## deleteHospitalProduct
+## createProductOrganization
 
-> deleteHospitalProduct(hospitalId, productId)
+> ProductOrganization createProductOrganization(id, createProductOrganizationRequest)
 
-Unlink product from hospital
+Add organization to product
 
 ### Example
 
@@ -97,7 +101,7 @@ import {
   Configuration,
   ProductsApi,
 } from '';
-import type { DeleteHospitalProductRequest } from '';
+import type { CreateProductOrganizationOperationRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -109,13 +113,13 @@ async function example() {
 
   const body = {
     // string
-    hospitalId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // string
-    productId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies DeleteHospitalProductRequest;
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // CreateProductOrganizationRequest
+    createProductOrganizationRequest: ...,
+  } satisfies CreateProductOrganizationOperationRequest;
 
   try {
-    const data = await api.deleteHospitalProduct(body);
+    const data = await api.createProductOrganization(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -131,8 +135,162 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **hospitalId** | `string` |  | [Defaults to `undefined`] |
-| **productId** | `string` |  | [Defaults to `undefined`] |
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **createProductOrganizationRequest** | [CreateProductOrganizationRequest](CreateProductOrganizationRequest.md) |  | |
+
+### Return type
+
+[**ProductOrganization**](ProductOrganization.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Product organization created |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **404** | Resource not found |  -  |
+| **409** | Conflict with existing state |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## createProductUser
+
+> UserProduct createProductUser(id, createProductUserRequest)
+
+Add user to product
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProductsApi,
+} from '';
+import type { CreateProductUserOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProductsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // CreateProductUserRequest
+    createProductUserRequest: ...,
+  } satisfies CreateProductUserOperationRequest;
+
+  try {
+    const data = await api.createProductUser(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **createProductUserRequest** | [CreateProductUserRequest](CreateProductUserRequest.md) |  | |
+
+### Return type
+
+[**UserProduct**](UserProduct.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Product user created |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **404** | Resource not found |  -  |
+| **409** | Conflict with existing state |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteProductOrganization
+
+> deleteProductOrganization(id, organizationID)
+
+Remove organization from product
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProductsApi,
+} from '';
+import type { DeleteProductOrganizationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProductsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    organizationID: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies DeleteProductOrganizationRequest;
+
+  try {
+    const data = await api.deleteProductOrganization(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **organizationID** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
@@ -151,16 +309,94 @@ example().catch(console.error);
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | Unlinked |  -  |
+| **204** | Product organization removed |  -  |
+| **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
 | **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteProductUser
+
+> deleteProductUser(id, userID)
+
+Remove user from product
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProductsApi,
+} from '';
+import type { DeleteProductUserRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProductsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    userID: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies DeleteProductUserRequest;
+
+  try {
+    const data = await api.deleteProductUser(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **userID** | `string` |  | [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Product user removed |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
 ## getProduct
 
-> Product getProduct(productId)
+> Product getProduct(id)
 
 Get product
 
@@ -183,7 +419,7 @@ async function example() {
 
   const body = {
     // string
-    productId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   } satisfies GetProductRequest;
 
   try {
@@ -203,7 +439,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **productId** | `string` |  | [Defaults to `undefined`] |
+| **id** | `string` |  | [Defaults to `undefined`] |
 
 ### Return type
 
@@ -223,15 +459,161 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Product |  -  |
+| **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
 | **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listProductOrganizations
+
+> Array&lt;ProductOrganization&gt; listProductOrganizations(id)
+
+List product organizations
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProductsApi,
+} from '';
+import type { ListProductOrganizationsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProductsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ListProductOrganizationsRequest;
+
+  try {
+    const data = await api.listProductOrganizations(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;ProductOrganization&gt;**](ProductOrganization.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Product organizations |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listProductUsers
+
+> Array&lt;UserProduct&gt; listProductUsers(id)
+
+List product users
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ProductsApi,
+} from '';
+import type { ListProductUsersRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new ProductsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ListProductUsersRequest;
+
+  try {
+    const data = await api.listProductUsers(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;UserProduct&gt;**](UserProduct.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Product users |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
 ## listProducts
 
-> ListProductsResponse listProducts(vendorOrganizationId, page, pageSize)
+> Array&lt;Product&gt; listProducts()
 
 List products
 
@@ -252,17 +634,8 @@ async function example() {
   });
   const api = new ProductsApi(config);
 
-  const body = {
-    // string (optional)
-    vendorOrganizationId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // number (optional)
-    page: 56,
-    // number (optional)
-    pageSize: 56,
-  } satisfies ListProductsRequest;
-
   try {
-    const data = await api.listProducts(body);
+    const data = await api.listProducts();
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -275,16 +648,11 @@ example().catch(console.error);
 
 ### Parameters
 
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **vendorOrganizationId** | `string` |  | [Optional] [Defaults to `undefined`] |
-| **page** | `number` |  | [Optional] [Defaults to `1`] |
-| **pageSize** | `number` |  | [Optional] [Defaults to `25`] |
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**ListProductsResponse**](ListProductsResponse.md)
+[**Array&lt;Product&gt;**](Product.md)
 
 ### Authorization
 
@@ -301,155 +669,7 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | Products |  -  |
 | **401** | Missing or invalid authentication |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
-## patchProduct
-
-> Product patchProduct(productId, patchProductRequest)
-
-Update product
-
-### Example
-
-```ts
-import {
-  Configuration,
-  ProductsApi,
-} from '';
-import type { PatchProductOperationRequest } from '';
-
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new ProductsApi(config);
-
-  const body = {
-    // string
-    productId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // PatchProductRequest
-    patchProductRequest: ...,
-  } satisfies PatchProductOperationRequest;
-
-  try {
-    const data = await api.patchProduct(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **productId** | `string` |  | [Defaults to `undefined`] |
-| **patchProductRequest** | [PatchProductRequest](PatchProductRequest.md) |  | |
-
-### Return type
-
-[**Product**](Product.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Product updated |  -  |
-| **400** | Validation or request shape error |  -  |
-| **401** | Missing or invalid authentication |  -  |
-| **404** | Resource not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
-## putHospitalProduct
-
-> putHospitalProduct(hospitalId, productId)
-
-Link product to hospital
-
-### Example
-
-```ts
-import {
-  Configuration,
-  ProductsApi,
-} from '';
-import type { PutHospitalProductRequest } from '';
-
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearerAuth
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new ProductsApi(config);
-
-  const body = {
-    // string
-    hospitalId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // string
-    productId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies PutHospitalProductRequest;
-
-  try {
-    const data = await api.putHospitalProduct(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **hospitalId** | `string` |  | [Defaults to `undefined`] |
-| **productId** | `string` |  | [Defaults to `undefined`] |
-
-### Return type
-
-`void` (Empty response body)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `application/json`
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **204** | Linked |  -  |
-| **401** | Missing or invalid authentication |  -  |
-| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 

@@ -1,26 +1,30 @@
 
-# CreateProductRequest
+# OrganizationRelation
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`name` | string
-`description` | string
-`vendor_org_id` | string
+`id` | string
+`parent_organization_id` | string
+`child_organization_id` | string
+`date_added` | Date
+`relation_type` | [OrganizationRelationType](OrganizationRelationType.md)
 
 ## Example
 
 ```typescript
-import type { CreateProductRequest } from ''
+import type { OrganizationRelation } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "name": null,
-  "description": null,
-  "vendor_org_id": null,
-} satisfies CreateProductRequest
+  "id": null,
+  "parent_organization_id": null,
+  "child_organization_id": null,
+  "date_added": null,
+  "relation_type": null,
+} satisfies OrganizationRelation
 
 console.log(example)
 
@@ -29,7 +33,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as CreateProductRequest
+const exampleParsed = JSON.parse(exampleJSON) as OrganizationRelation
 console.log(exampleParsed)
 ```
 

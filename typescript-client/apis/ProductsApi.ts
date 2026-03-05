@@ -15,52 +15,65 @@
 
 import * as runtime from '../runtime';
 import type {
+  CreateProductOrganizationRequest,
   CreateProductRequest,
+  CreateProductUserRequest,
   ErrorResponse,
-  ListProductsResponse,
-  PatchProductRequest,
   Product,
+  ProductOrganization,
+  UserProduct,
 } from '../models/index';
 import {
+    CreateProductOrganizationRequestFromJSON,
+    CreateProductOrganizationRequestToJSON,
     CreateProductRequestFromJSON,
     CreateProductRequestToJSON,
+    CreateProductUserRequestFromJSON,
+    CreateProductUserRequestToJSON,
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
-    ListProductsResponseFromJSON,
-    ListProductsResponseToJSON,
-    PatchProductRequestFromJSON,
-    PatchProductRequestToJSON,
     ProductFromJSON,
     ProductToJSON,
+    ProductOrganizationFromJSON,
+    ProductOrganizationToJSON,
+    UserProductFromJSON,
+    UserProductToJSON,
 } from '../models/index';
 
 export interface CreateProductOperationRequest {
     createProductRequest: CreateProductRequest;
 }
 
-export interface DeleteHospitalProductRequest {
-    hospitalId: string;
-    productId: string;
+export interface CreateProductOrganizationOperationRequest {
+    id: string;
+    createProductOrganizationRequest: CreateProductOrganizationRequest;
+}
+
+export interface CreateProductUserOperationRequest {
+    id: string;
+    createProductUserRequest: CreateProductUserRequest;
+}
+
+export interface DeleteProductOrganizationRequest {
+    id: string;
+    organizationID: string;
+}
+
+export interface DeleteProductUserRequest {
+    id: string;
+    userID: string;
 }
 
 export interface GetProductRequest {
-    productId: string;
+    id: string;
 }
 
-export interface ListProductsRequest {
-    vendorOrganizationId?: string;
-    page?: number;
-    pageSize?: number;
+export interface ListProductOrganizationsRequest {
+    id: string;
 }
 
-export interface PatchProductOperationRequest {
-    productId: string;
-    patchProductRequest: PatchProductRequest;
-}
-
-export interface PutHospitalProductRequest {
-    hospitalId: string;
-    productId: string;
+export interface ListProductUsersRequest {
+    id: string;
 }
 
 /**
@@ -94,33 +107,108 @@ export interface ProductsApiInterface {
     createProduct(requestParameters: CreateProductOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Product>;
 
     /**
-     * Creates request options for deleteHospitalProduct without sending the request
-     * @param {string} hospitalId 
-     * @param {string} productId 
+     * Creates request options for createProductOrganization without sending the request
+     * @param {string} id 
+     * @param {CreateProductOrganizationRequest} createProductOrganizationRequest 
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
      */
-    deleteHospitalProductRequestOpts(requestParameters: DeleteHospitalProductRequest): Promise<runtime.RequestOpts>;
+    createProductOrganizationRequestOpts(requestParameters: CreateProductOrganizationOperationRequest): Promise<runtime.RequestOpts>;
 
     /**
      * 
-     * @summary Unlink product from hospital
-     * @param {string} hospitalId 
-     * @param {string} productId 
+     * @summary Add organization to product
+     * @param {string} id 
+     * @param {CreateProductOrganizationRequest} createProductOrganizationRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
      */
-    deleteHospitalProductRaw(requestParameters: DeleteHospitalProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+    createProductOrganizationRaw(requestParameters: CreateProductOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ProductOrganization>>;
 
     /**
-     * Unlink product from hospital
+     * Add organization to product
      */
-    deleteHospitalProduct(requestParameters: DeleteHospitalProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    createProductOrganization(requestParameters: CreateProductOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ProductOrganization>;
+
+    /**
+     * Creates request options for createProductUser without sending the request
+     * @param {string} id 
+     * @param {CreateProductUserRequest} createProductUserRequest 
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    createProductUserRequestOpts(requestParameters: CreateProductUserOperationRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Add user to product
+     * @param {string} id 
+     * @param {CreateProductUserRequest} createProductUserRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    createProductUserRaw(requestParameters: CreateProductUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProduct>>;
+
+    /**
+     * Add user to product
+     */
+    createProductUser(requestParameters: CreateProductUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProduct>;
+
+    /**
+     * Creates request options for deleteProductOrganization without sending the request
+     * @param {string} id 
+     * @param {string} organizationID 
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    deleteProductOrganizationRequestOpts(requestParameters: DeleteProductOrganizationRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Remove organization from product
+     * @param {string} id 
+     * @param {string} organizationID 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    deleteProductOrganizationRaw(requestParameters: DeleteProductOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Remove organization from product
+     */
+    deleteProductOrganization(requestParameters: DeleteProductOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * Creates request options for deleteProductUser without sending the request
+     * @param {string} id 
+     * @param {string} userID 
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    deleteProductUserRequestOpts(requestParameters: DeleteProductUserRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Remove user from product
+     * @param {string} id 
+     * @param {string} userID 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    deleteProductUserRaw(requestParameters: DeleteProductUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Remove user from product
+     */
+    deleteProductUser(requestParameters: DeleteProductUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
 
     /**
      * Creates request options for getProduct without sending the request
-     * @param {string} productId 
+     * @param {string} id 
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
      */
@@ -129,7 +217,7 @@ export interface ProductsApiInterface {
     /**
      * 
      * @summary Get product
-     * @param {string} productId 
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
@@ -142,81 +230,71 @@ export interface ProductsApiInterface {
     getProduct(requestParameters: GetProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Product>;
 
     /**
-     * Creates request options for listProducts without sending the request
-     * @param {string} [vendorOrganizationId] 
-     * @param {number} [page] 
-     * @param {number} [pageSize] 
+     * Creates request options for listProductOrganizations without sending the request
+     * @param {string} id 
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
      */
-    listProductsRequestOpts(requestParameters: ListProductsRequest): Promise<runtime.RequestOpts>;
+    listProductOrganizationsRequestOpts(requestParameters: ListProductOrganizationsRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List product organizations
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    listProductOrganizationsRaw(requestParameters: ListProductOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ProductOrganization>>>;
+
+    /**
+     * List product organizations
+     */
+    listProductOrganizations(requestParameters: ListProductOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ProductOrganization>>;
+
+    /**
+     * Creates request options for listProductUsers without sending the request
+     * @param {string} id 
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    listProductUsersRequestOpts(requestParameters: ListProductUsersRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List product users
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    listProductUsersRaw(requestParameters: ListProductUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserProduct>>>;
+
+    /**
+     * List product users
+     */
+    listProductUsers(requestParameters: ListProductUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<UserProduct>>;
+
+    /**
+     * Creates request options for listProducts without sending the request
+     * @throws {RequiredError}
+     * @memberof ProductsApiInterface
+     */
+    listProductsRequestOpts(): Promise<runtime.RequestOpts>;
 
     /**
      * 
      * @summary List products
-     * @param {string} [vendorOrganizationId] 
-     * @param {number} [page] 
-     * @param {number} [pageSize] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
      */
-    listProductsRaw(requestParameters: ListProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListProductsResponse>>;
+    listProductsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Product>>>;
 
     /**
      * List products
      */
-    listProducts(requestParameters: ListProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListProductsResponse>;
-
-    /**
-     * Creates request options for patchProduct without sending the request
-     * @param {string} productId 
-     * @param {PatchProductRequest} patchProductRequest 
-     * @throws {RequiredError}
-     * @memberof ProductsApiInterface
-     */
-    patchProductRequestOpts(requestParameters: PatchProductOperationRequest): Promise<runtime.RequestOpts>;
-
-    /**
-     * 
-     * @summary Update product
-     * @param {string} productId 
-     * @param {PatchProductRequest} patchProductRequest 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ProductsApiInterface
-     */
-    patchProductRaw(requestParameters: PatchProductOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Product>>;
-
-    /**
-     * Update product
-     */
-    patchProduct(requestParameters: PatchProductOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Product>;
-
-    /**
-     * Creates request options for putHospitalProduct without sending the request
-     * @param {string} hospitalId 
-     * @param {string} productId 
-     * @throws {RequiredError}
-     * @memberof ProductsApiInterface
-     */
-    putHospitalProductRequestOpts(requestParameters: PutHospitalProductRequest): Promise<runtime.RequestOpts>;
-
-    /**
-     * 
-     * @summary Link product to hospital
-     * @param {string} hospitalId 
-     * @param {string} productId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ProductsApiInterface
-     */
-    putHospitalProductRaw(requestParameters: PutHospitalProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
-
-    /**
-     * Link product to hospital
-     */
-    putHospitalProduct(requestParameters: PutHospitalProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+    listProducts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Product>>;
 
 }
 
@@ -251,7 +329,7 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
             }
         }
 
-        let urlPath = `/api/v1/products`;
+        let urlPath = `/v1/products`;
 
         return {
             path: urlPath,
@@ -281,20 +359,146 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     }
 
     /**
-     * Creates request options for deleteHospitalProduct without sending the request
+     * Creates request options for createProductOrganization without sending the request
      */
-    async deleteHospitalProductRequestOpts(requestParameters: DeleteHospitalProductRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['hospitalId'] == null) {
+    async createProductOrganizationRequestOpts(requestParameters: CreateProductOrganizationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
-                'hospitalId',
-                'Required parameter "hospitalId" was null or undefined when calling deleteHospitalProduct().'
+                'id',
+                'Required parameter "id" was null or undefined when calling createProductOrganization().'
             );
         }
 
-        if (requestParameters['productId'] == null) {
+        if (requestParameters['createProductOrganizationRequest'] == null) {
             throw new runtime.RequiredError(
-                'productId',
-                'Required parameter "productId" was null or undefined when calling deleteHospitalProduct().'
+                'createProductOrganizationRequest',
+                'Required parameter "createProductOrganizationRequest" was null or undefined when calling createProductOrganization().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/products/{id}/organizations`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateProductOrganizationRequestToJSON(requestParameters['createProductOrganizationRequest']),
+        };
+    }
+
+    /**
+     * Add organization to product
+     */
+    async createProductOrganizationRaw(requestParameters: CreateProductOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ProductOrganization>> {
+        const requestOptions = await this.createProductOrganizationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ProductOrganizationFromJSON(jsonValue));
+    }
+
+    /**
+     * Add organization to product
+     */
+    async createProductOrganization(requestParameters: CreateProductOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ProductOrganization> {
+        const response = await this.createProductOrganizationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for createProductUser without sending the request
+     */
+    async createProductUserRequestOpts(requestParameters: CreateProductUserOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling createProductUser().'
+            );
+        }
+
+        if (requestParameters['createProductUserRequest'] == null) {
+            throw new runtime.RequiredError(
+                'createProductUserRequest',
+                'Required parameter "createProductUserRequest" was null or undefined when calling createProductUser().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/products/{id}/users`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateProductUserRequestToJSON(requestParameters['createProductUserRequest']),
+        };
+    }
+
+    /**
+     * Add user to product
+     */
+    async createProductUserRaw(requestParameters: CreateProductUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProduct>> {
+        const requestOptions = await this.createProductUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserProductFromJSON(jsonValue));
+    }
+
+    /**
+     * Add user to product
+     */
+    async createProductUser(requestParameters: CreateProductUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProduct> {
+        const response = await this.createProductUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for deleteProductOrganization without sending the request
+     */
+    async deleteProductOrganizationRequestOpts(requestParameters: DeleteProductOrganizationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteProductOrganization().'
+            );
+        }
+
+        if (requestParameters['organizationID'] == null) {
+            throw new runtime.RequiredError(
+                'organizationID',
+                'Required parameter "organizationID" was null or undefined when calling deleteProductOrganization().'
             );
         }
 
@@ -311,9 +515,9 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
             }
         }
 
-        let urlPath = `/api/v1/hospitals/{hospitalId}/products/{productId}`;
-        urlPath = urlPath.replace(`{${"hospitalId"}}`, encodeURIComponent(String(requestParameters['hospitalId'])));
-        urlPath = urlPath.replace(`{${"productId"}}`, encodeURIComponent(String(requestParameters['productId'])));
+        let urlPath = `/v1/products/{id}/organizations/{organizationID}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        urlPath = urlPath.replace(`{${"organizationID"}}`, encodeURIComponent(String(requestParameters['organizationID'])));
 
         return {
             path: urlPath,
@@ -324,30 +528,37 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     }
 
     /**
-     * Unlink product from hospital
+     * Remove organization from product
      */
-    async deleteHospitalProductRaw(requestParameters: DeleteHospitalProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const requestOptions = await this.deleteHospitalProductRequestOpts(requestParameters);
+    async deleteProductOrganizationRaw(requestParameters: DeleteProductOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteProductOrganizationRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
 
     /**
-     * Unlink product from hospital
+     * Remove organization from product
      */
-    async deleteHospitalProduct(requestParameters: DeleteHospitalProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.deleteHospitalProductRaw(requestParameters, initOverrides);
+    async deleteProductOrganization(requestParameters: DeleteProductOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteProductOrganizationRaw(requestParameters, initOverrides);
     }
 
     /**
-     * Creates request options for getProduct without sending the request
+     * Creates request options for deleteProductUser without sending the request
      */
-    async getProductRequestOpts(requestParameters: GetProductRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['productId'] == null) {
+    async deleteProductUserRequestOpts(requestParameters: DeleteProductUserRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
-                'productId',
-                'Required parameter "productId" was null or undefined when calling getProduct().'
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteProductUser().'
+            );
+        }
+
+        if (requestParameters['userID'] == null) {
+            throw new runtime.RequiredError(
+                'userID',
+                'Required parameter "userID" was null or undefined when calling deleteProductUser().'
             );
         }
 
@@ -364,8 +575,61 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
             }
         }
 
-        let urlPath = `/api/v1/products/{productId}`;
-        urlPath = urlPath.replace(`{${"productId"}}`, encodeURIComponent(String(requestParameters['productId'])));
+        let urlPath = `/v1/products/{id}/users/{userID}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+        urlPath = urlPath.replace(`{${"userID"}}`, encodeURIComponent(String(requestParameters['userID'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Remove user from product
+     */
+    async deleteProductUserRaw(requestParameters: DeleteProductUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteProductUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Remove user from product
+     */
+    async deleteProductUser(requestParameters: DeleteProductUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteProductUserRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for getProduct without sending the request
+     */
+    async getProductRequestOpts(requestParameters: GetProductRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling getProduct().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/products/{id}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
 
         return {
             path: urlPath,
@@ -394,22 +658,17 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     }
 
     /**
-     * Creates request options for listProducts without sending the request
+     * Creates request options for listProductOrganizations without sending the request
      */
-    async listProductsRequestOpts(requestParameters: ListProductsRequest): Promise<runtime.RequestOpts> {
+    async listProductOrganizationsRequestOpts(requestParameters: ListProductOrganizationsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling listProductOrganizations().'
+            );
+        }
+
         const queryParameters: any = {};
-
-        if (requestParameters['vendorOrganizationId'] != null) {
-            queryParameters['vendor_organization_id'] = requestParameters['vendorOrganizationId'];
-        }
-
-        if (requestParameters['page'] != null) {
-            queryParameters['page'] = requestParameters['page'];
-        }
-
-        if (requestParameters['pageSize'] != null) {
-            queryParameters['page_size'] = requestParameters['pageSize'];
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -422,7 +681,106 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
             }
         }
 
-        let urlPath = `/api/v1/products`;
+        let urlPath = `/v1/products/{id}/organizations`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List product organizations
+     */
+    async listProductOrganizationsRaw(requestParameters: ListProductOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<ProductOrganization>>> {
+        const requestOptions = await this.listProductOrganizationsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProductOrganizationFromJSON));
+    }
+
+    /**
+     * List product organizations
+     */
+    async listProductOrganizations(requestParameters: ListProductOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<ProductOrganization>> {
+        const response = await this.listProductOrganizationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listProductUsers without sending the request
+     */
+    async listProductUsersRequestOpts(requestParameters: ListProductUsersRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling listProductUsers().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/products/{id}/users`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List product users
+     */
+    async listProductUsersRaw(requestParameters: ListProductUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserProduct>>> {
+        const requestOptions = await this.listProductUsersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserProductFromJSON));
+    }
+
+    /**
+     * List product users
+     */
+    async listProductUsers(requestParameters: ListProductUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<UserProduct>> {
+        const response = await this.listProductUsersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listProducts without sending the request
+     */
+    async listProductsRequestOpts(): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/products`;
 
         return {
             path: urlPath,
@@ -435,142 +793,19 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     /**
      * List products
      */
-    async listProductsRaw(requestParameters: ListProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListProductsResponse>> {
-        const requestOptions = await this.listProductsRequestOpts(requestParameters);
+    async listProductsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Product>>> {
+        const requestOptions = await this.listProductsRequestOpts();
         const response = await this.request(requestOptions, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ListProductsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProductFromJSON));
     }
 
     /**
      * List products
      */
-    async listProducts(requestParameters: ListProductsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListProductsResponse> {
-        const response = await this.listProductsRaw(requestParameters, initOverrides);
+    async listProducts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Product>> {
+        const response = await this.listProductsRaw(initOverrides);
         return await response.value();
-    }
-
-    /**
-     * Creates request options for patchProduct without sending the request
-     */
-    async patchProductRequestOpts(requestParameters: PatchProductOperationRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['productId'] == null) {
-            throw new runtime.RequiredError(
-                'productId',
-                'Required parameter "productId" was null or undefined when calling patchProduct().'
-            );
-        }
-
-        if (requestParameters['patchProductRequest'] == null) {
-            throw new runtime.RequiredError(
-                'patchProductRequest',
-                'Required parameter "patchProductRequest" was null or undefined when calling patchProduct().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/v1/products/{productId}`;
-        urlPath = urlPath.replace(`{${"productId"}}`, encodeURIComponent(String(requestParameters['productId'])));
-
-        return {
-            path: urlPath,
-            method: 'PATCH',
-            headers: headerParameters,
-            query: queryParameters,
-            body: PatchProductRequestToJSON(requestParameters['patchProductRequest']),
-        };
-    }
-
-    /**
-     * Update product
-     */
-    async patchProductRaw(requestParameters: PatchProductOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Product>> {
-        const requestOptions = await this.patchProductRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ProductFromJSON(jsonValue));
-    }
-
-    /**
-     * Update product
-     */
-    async patchProduct(requestParameters: PatchProductOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Product> {
-        const response = await this.patchProductRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Creates request options for putHospitalProduct without sending the request
-     */
-    async putHospitalProductRequestOpts(requestParameters: PutHospitalProductRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['hospitalId'] == null) {
-            throw new runtime.RequiredError(
-                'hospitalId',
-                'Required parameter "hospitalId" was null or undefined when calling putHospitalProduct().'
-            );
-        }
-
-        if (requestParameters['productId'] == null) {
-            throw new runtime.RequiredError(
-                'productId',
-                'Required parameter "productId" was null or undefined when calling putHospitalProduct().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearerAuth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/v1/hospitals/{hospitalId}/products/{productId}`;
-        urlPath = urlPath.replace(`{${"hospitalId"}}`, encodeURIComponent(String(requestParameters['hospitalId'])));
-        urlPath = urlPath.replace(`{${"productId"}}`, encodeURIComponent(String(requestParameters['productId'])));
-
-        return {
-            path: urlPath,
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-        };
-    }
-
-    /**
-     * Link product to hospital
-     */
-    async putHospitalProductRaw(requestParameters: PutHospitalProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const requestOptions = await this.putHospitalProductRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * Link product to hospital
-     */
-    async putHospitalProduct(requestParameters: PutHospitalProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.putHospitalProductRaw(requestParameters, initOverrides);
     }
 
 }

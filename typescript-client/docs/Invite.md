@@ -1,5 +1,5 @@
 
-# Organization
+# Invite
 
 
 ## Properties
@@ -7,28 +7,38 @@
 Name | Type
 ------------ | -------------
 `id` | string
-`name` | string
+`email` | string
+`first_name` | string
+`last_name` | string
+`phone_number` | string
+`persona` | [UserPersona](UserPersona.md)
+`organization_id` | string
+`expires_at` | Date
+`consumed_at` | Date
+`consumed_by_user_id` | string
 `date_added` | Date
 `date_updated` | Date
-`org_type` | [OrganizationType](OrganizationType.md)
-`onboarding_status` | [OnboardingState](OnboardingState.md)
-`onboarded_at` | Date
 
 ## Example
 
 ```typescript
-import type { Organization } from ''
+import type { Invite } from ''
 
 // TODO: Update the object below with actual values
 const example = {
   "id": null,
-  "name": null,
+  "email": null,
+  "first_name": null,
+  "last_name": null,
+  "phone_number": null,
+  "persona": null,
+  "organization_id": null,
+  "expires_at": null,
+  "consumed_at": null,
+  "consumed_by_user_id": null,
   "date_added": null,
   "date_updated": null,
-  "org_type": null,
-  "onboarding_status": null,
-  "onboarded_at": null,
-} satisfies Organization
+} satisfies Invite
 
 console.log(example)
 
@@ -37,7 +47,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as Organization
+const exampleParsed = JSON.parse(exampleJSON) as Invite
 console.log(exampleParsed)
 ```
 

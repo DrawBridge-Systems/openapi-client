@@ -13,14 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { ErrorResponseError } from './ErrorResponseError';
-import {
-    ErrorResponseErrorFromJSON,
-    ErrorResponseErrorFromJSONTyped,
-    ErrorResponseErrorToJSON,
-    ErrorResponseErrorToJSONTyped,
-} from './ErrorResponseError';
-
 /**
  * 
  * @export
@@ -29,10 +21,10 @@ import {
 export interface ErrorResponse {
     /**
      * 
-     * @type {ErrorResponseError}
+     * @type {string}
      * @memberof ErrorResponse
      */
-    error: ErrorResponseError;
+    error: string;
 }
 
 /**
@@ -53,7 +45,7 @@ export function ErrorResponseFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'error': ErrorResponseErrorFromJSON(json['error']),
+        'error': json['error'],
     };
 }
 
@@ -68,7 +60,7 @@ export function ErrorResponseToJSONTyped(value?: ErrorResponse | null, ignoreDis
 
     return {
         
-        'error': ErrorResponseErrorToJSON(value['error']),
+        'error': value['error'],
     };
 }
 

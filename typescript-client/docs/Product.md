@@ -7,11 +7,11 @@
 Name | Type
 ------------ | -------------
 `id` | string
-`vendor_organization_id` | string
 `name` | string
 `description` | string
-`created_at` | Date
-`updated_at` | Date
+`date_added` | Date
+`date_updated` | Date
+`vendor_org_id` | string
 
 ## Example
 
@@ -21,11 +21,11 @@ import type { Product } from ''
 // TODO: Update the object below with actual values
 const example = {
   "id": null,
-  "vendor_organization_id": null,
   "name": null,
   "description": null,
-  "created_at": null,
-  "updated_at": null,
+  "date_added": null,
+  "date_updated": null,
+  "vendor_org_id": null,
 } satisfies Product
 
 console.log(example)

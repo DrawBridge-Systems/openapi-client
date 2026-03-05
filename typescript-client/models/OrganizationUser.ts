@@ -16,81 +16,75 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface Product
+ * @interface OrganizationUser
  */
-export interface Product {
+export interface OrganizationUser {
     /**
      * 
      * @type {string}
-     * @memberof Product
+     * @memberof OrganizationUser
      */
     id: string;
     /**
      * 
      * @type {string}
-     * @memberof Product
+     * @memberof OrganizationUser
      */
-    name: string;
+    organization_id: string;
     /**
      * 
      * @type {string}
-     * @memberof Product
+     * @memberof OrganizationUser
      */
-    description?: string | null;
+    user_id: string;
     /**
      * 
      * @type {Date}
-     * @memberof Product
+     * @memberof OrganizationUser
      */
     date_added: Date;
     /**
      * 
      * @type {Date}
-     * @memberof Product
+     * @memberof OrganizationUser
      */
     date_updated?: Date | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof Product
-     */
-    vendor_org_id?: string | null;
 }
 
 /**
- * Check if a given object implements the Product interface.
+ * Check if a given object implements the OrganizationUser interface.
  */
-export function instanceOfProduct(value: object): value is Product {
+export function instanceOfOrganizationUser(value: object): value is OrganizationUser {
     if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('organization_id' in value) || value['organization_id'] === undefined) return false;
+    if (!('user_id' in value) || value['user_id'] === undefined) return false;
     if (!('date_added' in value) || value['date_added'] === undefined) return false;
     return true;
 }
 
-export function ProductFromJSON(json: any): Product {
-    return ProductFromJSONTyped(json, false);
+export function OrganizationUserFromJSON(json: any): OrganizationUser {
+    return OrganizationUserFromJSONTyped(json, false);
 }
 
-export function ProductFromJSONTyped(json: any, ignoreDiscriminator: boolean): Product {
+export function OrganizationUserFromJSONTyped(json: any, ignoreDiscriminator: boolean): OrganizationUser {
     if (json == null) {
         return json;
     }
     return {
         
         'id': json['id'],
-        'name': json['name'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'organization_id': json['organization_id'],
+        'user_id': json['user_id'],
         'date_added': (new Date(json['date_added'])),
         'date_updated': json['date_updated'] == null ? undefined : (new Date(json['date_updated'])),
-        'vendor_org_id': json['vendor_org_id'] == null ? undefined : json['vendor_org_id'],
     };
 }
 
-export function ProductToJSON(json: any): Product {
-    return ProductToJSONTyped(json, false);
+export function OrganizationUserToJSON(json: any): OrganizationUser {
+    return OrganizationUserToJSONTyped(json, false);
 }
 
-export function ProductToJSONTyped(value?: Product | null, ignoreDiscriminator: boolean = false): any {
+export function OrganizationUserToJSONTyped(value?: OrganizationUser | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
@@ -98,11 +92,10 @@ export function ProductToJSONTyped(value?: Product | null, ignoreDiscriminator: 
     return {
         
         'id': value['id'],
-        'name': value['name'],
-        'description': value['description'],
+        'organization_id': value['organization_id'],
+        'user_id': value['user_id'],
         'date_added': value['date_added'].toISOString(),
         'date_updated': value['date_updated'] == null ? value['date_updated'] : value['date_updated'].toISOString(),
-        'vendor_org_id': value['vendor_org_id'],
     };
 }
 

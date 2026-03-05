@@ -20,17 +20,17 @@ import { mapValues } from '../runtime';
  */
 export interface CreateSessionRequest {
     /**
-     * Email address used to resolve the user id.
-     * @type {string}
-     * @memberof CreateSessionRequest
-     */
-    email?: string;
-    /**
-     * External or internal stable subject identifier.
+     * 
      * @type {string}
      * @memberof CreateSessionRequest
      */
     user_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSessionRequest
+     */
+    email?: string;
     /**
      * 
      * @type {string}
@@ -57,8 +57,8 @@ export function CreateSessionRequestFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'email': json['email'] == null ? undefined : json['email'],
         'user_id': json['user_id'] == null ? undefined : json['user_id'],
+        'email': json['email'] == null ? undefined : json['email'],
         'password': json['password'],
     };
 }
@@ -74,8 +74,8 @@ export function CreateSessionRequestToJSONTyped(value?: CreateSessionRequest | n
 
     return {
         
-        'email': value['email'],
         'user_id': value['user_id'],
+        'email': value['email'],
         'password': value['password'],
     };
 }

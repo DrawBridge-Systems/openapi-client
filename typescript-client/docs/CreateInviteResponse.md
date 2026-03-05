@@ -1,26 +1,24 @@
 
-# CreateProductRequest
+# CreateInviteResponse
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`name` | string
-`description` | string
-`vendor_org_id` | string
+`invite_token` | string
+`invite` | [Invite](Invite.md)
 
 ## Example
 
 ```typescript
-import type { CreateProductRequest } from ''
+import type { CreateInviteResponse } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "name": null,
-  "description": null,
-  "vendor_org_id": null,
-} satisfies CreateProductRequest
+  "invite_token": null,
+  "invite": null,
+} satisfies CreateInviteResponse
 
 console.log(example)
 
@@ -29,7 +27,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as CreateProductRequest
+const exampleParsed = JSON.parse(exampleJSON) as CreateInviteResponse
 console.log(exampleParsed)
 ```
 
