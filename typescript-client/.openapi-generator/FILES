@@ -1,3 +1,4 @@
+apis/AdminApi.ts
 apis/AuthApi.ts
 apis/HealthApi.ts
 apis/OrganizationsApi.ts
@@ -5,9 +6,11 @@ apis/ProductsApi.ts
 apis/UsersApi.ts
 apis/index.ts
 docs/AcceptInviteRequest.md
+docs/AdminApi.md
 docs/AuthApi.md
 docs/BuildInfo.md
 docs/CallerContext.md
+docs/CreateAdminUserRequest.md
 docs/CreateInviteRequest.md
 docs/CreateInviteResponse.md
 docs/CreateOrganizationRelationRequest.md
@@ -41,6 +44,7 @@ index.ts
 models/AcceptInviteRequest.ts
 models/BuildInfo.ts
 models/CallerContext.ts
+models/CreateAdminUserRequest.ts
 models/CreateInviteRequest.ts
 models/CreateInviteResponse.ts
 models/CreateOrganizationRelationRequest.ts

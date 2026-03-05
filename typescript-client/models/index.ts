@@ -3,6 +3,7 @@
 export * from './AcceptInviteRequest';
 export * from './BuildInfo';
 export * from './CallerContext';
+export * from './CreateAdminUserRequest';
 export * from './CreateInviteRequest';
 export * from './CreateInviteResponse';
 export * from './CreateOrganizationRelationRequest';

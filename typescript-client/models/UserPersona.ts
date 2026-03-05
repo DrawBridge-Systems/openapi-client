@@ -19,7 +19,8 @@
  */
 export const UserPersona = {
     User: 'user',
-    Representative: 'representative'
+    Representative: 'representative',
+    Admin: 'admin'
 } as const;
 export type UserPersona = typeof UserPersona[keyof typeof UserPersona];
 
