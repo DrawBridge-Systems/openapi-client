@@ -33,16 +33,16 @@ export interface CallerContext {
     tenant_id: string;
     /**
      * 
-     * @type {number}
+     * @type {Array<string>}
      * @memberof CallerContext
      */
-    role_mask: number;
+    roles: Array<string>;
     /**
      * 
-     * @type {number}
+     * @type {Array<string>}
      * @memberof CallerContext
      */
-    permission_mask: number;
+    permissions: Array<string>;
     /**
      * 
      * @type {{ [key: string]: any; }}
@@ -57,8 +57,8 @@ export interface CallerContext {
 export function instanceOfCallerContext(value: object): value is CallerContext {
     if (!('subject' in value) || value['subject'] === undefined) return false;
     if (!('tenant_id' in value) || value['tenant_id'] === undefined) return false;
-    if (!('role_mask' in value) || value['role_mask'] === undefined) return false;
-    if (!('permission_mask' in value) || value['permission_mask'] === undefined) return false;
+    if (!('roles' in value) || value['roles'] === undefined) return false;
+    if (!('permissions' in value) || value['permissions'] === undefined) return false;
     return true;
 }
 
@@ -74,8 +74,8 @@ export function CallerContextFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'subject': json['subject'],
         'tenant_id': json['tenant_id'],
-        'role_mask': json['role_mask'],
-        'permission_mask': json['permission_mask'],
+        'roles': json['roles'],
+        'permissions': json['permissions'],
         'claims': json['claims'] == null ? undefined : json['claims'],
     };
 }
@@ -93,8 +93,8 @@ export function CallerContextToJSONTyped(value?: CallerContext | null, ignoreDis
         
         'subject': value['subject'],
         'tenant_id': value['tenant_id'],
-        'role_mask': value['role_mask'],
-        'permission_mask': value['permission_mask'],
+        'roles': value['roles'],
+        'permissions': value['permissions'],
         'claims': value['claims'],
     };
 }

@@ -8,8 +8,8 @@ Name | Type
 ------------ | -------------
 `subject` | string
 `tenant_id` | string
-`role_mask` | number
-`permission_mask` | number
+`roles` | Array&lt;string&gt;
+`permissions` | Array&lt;string&gt;
 `claims` | { [key: string]: any; }
 
 ## Example
@@ -21,8 +21,8 @@ import type { CallerContext } from ''
 const example = {
   "subject": null,
   "tenant_id": null,
-  "role_mask": null,
-  "permission_mask": null,
+  "roles": null,
+  "permissions": null,
   "claims": null,
 } satisfies CallerContext
 

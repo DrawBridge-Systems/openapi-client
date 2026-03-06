@@ -146,6 +146,7 @@ example().catch(console.error);
 | **201** | Invite created |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **409** | Conflict with existing state |  -  |
 | **500** | Internal server error |  -  |
 
@@ -219,6 +220,7 @@ example().catch(console.error);
 | **200** | User |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 

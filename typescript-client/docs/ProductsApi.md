@@ -83,6 +83,7 @@ example().catch(console.error);
 | **201** | Product created |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -158,6 +159,7 @@ example().catch(console.error);
 | **201** | Product organization created |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **404** | Resource not found |  -  |
 | **409** | Conflict with existing state |  -  |
 | **500** | Internal server error |  -  |
@@ -235,6 +237,7 @@ example().catch(console.error);
 | **201** | Product user created |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **404** | Resource not found |  -  |
 | **409** | Conflict with existing state |  -  |
 | **500** | Internal server error |  -  |
@@ -312,6 +315,7 @@ example().catch(console.error);
 | **204** | Product organization removed |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -388,6 +392,7 @@ example().catch(console.error);
 | **204** | Product user removed |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -461,6 +466,7 @@ example().catch(console.error);
 | **200** | Product |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -534,6 +540,7 @@ example().catch(console.error);
 | **200** | Product organizations |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -606,6 +613,7 @@ example().catch(console.error);
 | **200** | Product users |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -669,6 +677,7 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 | **200** | Products |  -  |
 | **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
