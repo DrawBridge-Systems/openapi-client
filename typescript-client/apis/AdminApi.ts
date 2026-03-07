@@ -16,20 +16,105 @@
 import * as runtime from '../runtime';
 import type {
   CreateAdminUserRequest,
+  CursorPageAuditEvent,
+  CursorPageOrganization,
+  CursorPageProduct,
+  CursorPageTrainingRequest,
+  CursorPageUser,
+  CursorPageWebinar,
   ErrorResponse,
+  OnboardingState,
+  OrganizationType,
   User,
+  UserPersona,
+  UserStatus,
 } from '../models/index';
 import {
     CreateAdminUserRequestFromJSON,
     CreateAdminUserRequestToJSON,
+    CursorPageAuditEventFromJSON,
+    CursorPageAuditEventToJSON,
+    CursorPageOrganizationFromJSON,
+    CursorPageOrganizationToJSON,
+    CursorPageProductFromJSON,
+    CursorPageProductToJSON,
+    CursorPageTrainingRequestFromJSON,
+    CursorPageTrainingRequestToJSON,
+    CursorPageUserFromJSON,
+    CursorPageUserToJSON,
+    CursorPageWebinarFromJSON,
+    CursorPageWebinarToJSON,
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
+    OnboardingStateFromJSON,
+    OnboardingStateToJSON,
+    OrganizationTypeFromJSON,
+    OrganizationTypeToJSON,
     UserFromJSON,
     UserToJSON,
+    UserPersonaFromJSON,
+    UserPersonaToJSON,
+    UserStatusFromJSON,
+    UserStatusToJSON,
 } from '../models/index';
 
 export interface CreateAdminUserOperationRequest {
     createAdminUserRequest: CreateAdminUserRequest;
+}
+
+export interface ListAdminAuditEventsRequest {
+    actorUserId?: string;
+    action?: string;
+    entityType?: string;
+    entityId?: string;
+    organizationId?: string;
+    from?: Date;
+    to?: Date;
+    limit?: number;
+    cursor?: string;
+}
+
+export interface ListAdminOrganizationsRequest {
+    q?: string;
+    orgType?: OrganizationType;
+    onboardingStatus?: OnboardingState;
+    limit?: number;
+    cursor?: string;
+}
+
+export interface ListAdminProductsRequest {
+    q?: string;
+    vendorOrgId?: string;
+    limit?: number;
+    cursor?: string;
+}
+
+export interface ListAdminTrainingRequestsRequest {
+    organizationId?: string;
+    submittedByUserId?: string;
+    assignedUserId?: string;
+    statuses?: string;
+    limit?: number;
+    cursor?: string;
+}
+
+export interface ListAdminUsersRequest {
+    q?: string;
+    persona?: UserPersona;
+    status?: UserStatus;
+    organizationId?: string;
+    limit?: number;
+    cursor?: string;
+}
+
+export interface ListAdminWebinarsRequest {
+    organizationId?: string;
+    hostUserId?: string;
+    statuses?: string;
+    start?: Date;
+    end?: Date;
+    limit?: number;
+    cursor?: string;
 }
 
 /**
@@ -61,6 +146,206 @@ export interface AdminApiInterface {
      * Create admin user
      */
     createAdminUser(requestParameters: CreateAdminUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<User>;
+
+    /**
+     * Creates request options for listAdminAuditEvents without sending the request
+     * @param {string} [actorUserId] 
+     * @param {string} [action] 
+     * @param {string} [entityType] 
+     * @param {string} [entityId] 
+     * @param {string} [organizationId] 
+     * @param {Date} [from] 
+     * @param {Date} [to] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminAuditEventsRequestOpts(requestParameters: ListAdminAuditEventsRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List audit events (admin cursor view)
+     * @param {string} [actorUserId] 
+     * @param {string} [action] 
+     * @param {string} [entityType] 
+     * @param {string} [entityId] 
+     * @param {string} [organizationId] 
+     * @param {Date} [from] 
+     * @param {Date} [to] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminAuditEventsRaw(requestParameters: ListAdminAuditEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageAuditEvent>>;
+
+    /**
+     * List audit events (admin cursor view)
+     */
+    listAdminAuditEvents(requestParameters: ListAdminAuditEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageAuditEvent>;
+
+    /**
+     * Creates request options for listAdminOrganizations without sending the request
+     * @param {string} [q] 
+     * @param {OrganizationType} [orgType] 
+     * @param {OnboardingState} [onboardingStatus] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminOrganizationsRequestOpts(requestParameters: ListAdminOrganizationsRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List organizations (admin cursor view)
+     * @param {string} [q] 
+     * @param {OrganizationType} [orgType] 
+     * @param {OnboardingState} [onboardingStatus] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminOrganizationsRaw(requestParameters: ListAdminOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageOrganization>>;
+
+    /**
+     * List organizations (admin cursor view)
+     */
+    listAdminOrganizations(requestParameters: ListAdminOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageOrganization>;
+
+    /**
+     * Creates request options for listAdminProducts without sending the request
+     * @param {string} [q] 
+     * @param {string} [vendorOrgId] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminProductsRequestOpts(requestParameters: ListAdminProductsRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List products (admin cursor view)
+     * @param {string} [q] 
+     * @param {string} [vendorOrgId] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminProductsRaw(requestParameters: ListAdminProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageProduct>>;
+
+    /**
+     * List products (admin cursor view)
+     */
+    listAdminProducts(requestParameters: ListAdminProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageProduct>;
+
+    /**
+     * Creates request options for listAdminTrainingRequests without sending the request
+     * @param {string} [organizationId] 
+     * @param {string} [submittedByUserId] 
+     * @param {string} [assignedUserId] 
+     * @param {string} [statuses] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminTrainingRequestsRequestOpts(requestParameters: ListAdminTrainingRequestsRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List training requests (admin cursor view)
+     * @param {string} [organizationId] 
+     * @param {string} [submittedByUserId] 
+     * @param {string} [assignedUserId] 
+     * @param {string} [statuses] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminTrainingRequestsRaw(requestParameters: ListAdminTrainingRequestsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageTrainingRequest>>;
+
+    /**
+     * List training requests (admin cursor view)
+     */
+    listAdminTrainingRequests(requestParameters: ListAdminTrainingRequestsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageTrainingRequest>;
+
+    /**
+     * Creates request options for listAdminUsers without sending the request
+     * @param {string} [q] 
+     * @param {UserPersona} [persona] 
+     * @param {UserStatus} [status] 
+     * @param {string} [organizationId] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminUsersRequestOpts(requestParameters: ListAdminUsersRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List users (admin cursor view)
+     * @param {string} [q] 
+     * @param {UserPersona} [persona] 
+     * @param {UserStatus} [status] 
+     * @param {string} [organizationId] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminUsersRaw(requestParameters: ListAdminUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageUser>>;
+
+    /**
+     * List users (admin cursor view)
+     */
+    listAdminUsers(requestParameters: ListAdminUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageUser>;
+
+    /**
+     * Creates request options for listAdminWebinars without sending the request
+     * @param {string} [organizationId] 
+     * @param {string} [hostUserId] 
+     * @param {string} [statuses] 
+     * @param {Date} [start] 
+     * @param {Date} [end] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminWebinarsRequestOpts(requestParameters: ListAdminWebinarsRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List webinars (admin cursor view)
+     * @param {string} [organizationId] 
+     * @param {string} [hostUserId] 
+     * @param {string} [statuses] 
+     * @param {Date} [start] 
+     * @param {Date} [end] 
+     * @param {number} [limit] 
+     * @param {string} [cursor] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    listAdminWebinarsRaw(requestParameters: ListAdminWebinarsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageWebinar>>;
+
+    /**
+     * List webinars (admin cursor view)
+     */
+    listAdminWebinars(requestParameters: ListAdminWebinarsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageWebinar>;
 
 }
 
@@ -121,6 +406,424 @@ export class AdminApi extends runtime.BaseAPI implements AdminApiInterface {
      */
     async createAdminUser(requestParameters: CreateAdminUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<User> {
         const response = await this.createAdminUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAdminAuditEvents without sending the request
+     */
+    async listAdminAuditEventsRequestOpts(requestParameters: ListAdminAuditEventsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['actorUserId'] != null) {
+            queryParameters['actor_user_id'] = requestParameters['actorUserId'];
+        }
+
+        if (requestParameters['action'] != null) {
+            queryParameters['action'] = requestParameters['action'];
+        }
+
+        if (requestParameters['entityType'] != null) {
+            queryParameters['entity_type'] = requestParameters['entityType'];
+        }
+
+        if (requestParameters['entityId'] != null) {
+            queryParameters['entity_id'] = requestParameters['entityId'];
+        }
+
+        if (requestParameters['organizationId'] != null) {
+            queryParameters['organization_id'] = requestParameters['organizationId'];
+        }
+
+        if (requestParameters['from'] != null) {
+            queryParameters['from'] = (requestParameters['from'] as any).toISOString();
+        }
+
+        if (requestParameters['to'] != null) {
+            queryParameters['to'] = (requestParameters['to'] as any).toISOString();
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/audit/events`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List audit events (admin cursor view)
+     */
+    async listAdminAuditEventsRaw(requestParameters: ListAdminAuditEventsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageAuditEvent>> {
+        const requestOptions = await this.listAdminAuditEventsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CursorPageAuditEventFromJSON(jsonValue));
+    }
+
+    /**
+     * List audit events (admin cursor view)
+     */
+    async listAdminAuditEvents(requestParameters: ListAdminAuditEventsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageAuditEvent> {
+        const response = await this.listAdminAuditEventsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAdminOrganizations without sending the request
+     */
+    async listAdminOrganizationsRequestOpts(requestParameters: ListAdminOrganizationsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['orgType'] != null) {
+            queryParameters['org_type'] = requestParameters['orgType'];
+        }
+
+        if (requestParameters['onboardingStatus'] != null) {
+            queryParameters['onboarding_status'] = requestParameters['onboardingStatus'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/organizations`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List organizations (admin cursor view)
+     */
+    async listAdminOrganizationsRaw(requestParameters: ListAdminOrganizationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageOrganization>> {
+        const requestOptions = await this.listAdminOrganizationsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CursorPageOrganizationFromJSON(jsonValue));
+    }
+
+    /**
+     * List organizations (admin cursor view)
+     */
+    async listAdminOrganizations(requestParameters: ListAdminOrganizationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageOrganization> {
+        const response = await this.listAdminOrganizationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAdminProducts without sending the request
+     */
+    async listAdminProductsRequestOpts(requestParameters: ListAdminProductsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['vendorOrgId'] != null) {
+            queryParameters['vendor_org_id'] = requestParameters['vendorOrgId'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/products`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List products (admin cursor view)
+     */
+    async listAdminProductsRaw(requestParameters: ListAdminProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageProduct>> {
+        const requestOptions = await this.listAdminProductsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CursorPageProductFromJSON(jsonValue));
+    }
+
+    /**
+     * List products (admin cursor view)
+     */
+    async listAdminProducts(requestParameters: ListAdminProductsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageProduct> {
+        const response = await this.listAdminProductsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAdminTrainingRequests without sending the request
+     */
+    async listAdminTrainingRequestsRequestOpts(requestParameters: ListAdminTrainingRequestsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['organizationId'] != null) {
+            queryParameters['organization_id'] = requestParameters['organizationId'];
+        }
+
+        if (requestParameters['submittedByUserId'] != null) {
+            queryParameters['submitted_by_user_id'] = requestParameters['submittedByUserId'];
+        }
+
+        if (requestParameters['assignedUserId'] != null) {
+            queryParameters['assigned_user_id'] = requestParameters['assignedUserId'];
+        }
+
+        if (requestParameters['statuses'] != null) {
+            queryParameters['statuses'] = requestParameters['statuses'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/training/requests`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List training requests (admin cursor view)
+     */
+    async listAdminTrainingRequestsRaw(requestParameters: ListAdminTrainingRequestsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageTrainingRequest>> {
+        const requestOptions = await this.listAdminTrainingRequestsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CursorPageTrainingRequestFromJSON(jsonValue));
+    }
+
+    /**
+     * List training requests (admin cursor view)
+     */
+    async listAdminTrainingRequests(requestParameters: ListAdminTrainingRequestsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageTrainingRequest> {
+        const response = await this.listAdminTrainingRequestsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAdminUsers without sending the request
+     */
+    async listAdminUsersRequestOpts(requestParameters: ListAdminUsersRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['persona'] != null) {
+            queryParameters['persona'] = requestParameters['persona'];
+        }
+
+        if (requestParameters['status'] != null) {
+            queryParameters['status'] = requestParameters['status'];
+        }
+
+        if (requestParameters['organizationId'] != null) {
+            queryParameters['organization_id'] = requestParameters['organizationId'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/users`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List users (admin cursor view)
+     */
+    async listAdminUsersRaw(requestParameters: ListAdminUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageUser>> {
+        const requestOptions = await this.listAdminUsersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CursorPageUserFromJSON(jsonValue));
+    }
+
+    /**
+     * List users (admin cursor view)
+     */
+    async listAdminUsers(requestParameters: ListAdminUsersRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageUser> {
+        const response = await this.listAdminUsersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listAdminWebinars without sending the request
+     */
+    async listAdminWebinarsRequestOpts(requestParameters: ListAdminWebinarsRequest): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        if (requestParameters['organizationId'] != null) {
+            queryParameters['organization_id'] = requestParameters['organizationId'];
+        }
+
+        if (requestParameters['hostUserId'] != null) {
+            queryParameters['host_user_id'] = requestParameters['hostUserId'];
+        }
+
+        if (requestParameters['statuses'] != null) {
+            queryParameters['statuses'] = requestParameters['statuses'];
+        }
+
+        if (requestParameters['start'] != null) {
+            queryParameters['start'] = (requestParameters['start'] as any).toISOString();
+        }
+
+        if (requestParameters['end'] != null) {
+            queryParameters['end'] = (requestParameters['end'] as any).toISOString();
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['cursor'] != null) {
+            queryParameters['cursor'] = requestParameters['cursor'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/webinars`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List webinars (admin cursor view)
+     */
+    async listAdminWebinarsRaw(requestParameters: ListAdminWebinarsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CursorPageWebinar>> {
+        const requestOptions = await this.listAdminWebinarsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CursorPageWebinarFromJSON(jsonValue));
+    }
+
+    /**
+     * List webinars (admin cursor view)
+     */
+    async listAdminWebinars(requestParameters: ListAdminWebinarsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageWebinar> {
+        const response = await this.listAdminWebinarsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

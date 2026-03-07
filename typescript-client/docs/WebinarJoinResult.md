@@ -10,6 +10,8 @@ Name | Type
 `expires_at` | Date
 `signal_path` | string
 `room_owner_node` | string
+`participant_role` | [WebinarParticipantRole](WebinarParticipantRole.md)
+`ice_servers` | [Array&lt;WebinarIceServer&gt;](WebinarIceServer.md)
 
 ## Example
 
@@ -22,6 +24,8 @@ const example = {
   "expires_at": null,
   "signal_path": null,
   "room_owner_node": null,
+  "participant_role": null,
+  "ice_servers": null,
 } satisfies WebinarJoinResult
 
 console.log(example)

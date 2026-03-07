@@ -12,6 +12,7 @@ All URIs are relative to *https://api.bridge.med*
 | [**getOrganization**](OrganizationsApi.md#getorganization) | **GET** /v1/organizations/{id} | Get organization |
 | [**listOrganizationRelations**](OrganizationsApi.md#listorganizationrelations) | **GET** /v1/organizations/{id}/relations | List organization relations |
 | [**listOrganizationUsers**](OrganizationsApi.md#listorganizationusers) | **GET** /v1/organizations/{id}/users | List organization users |
+| [**listOrganizations**](OrganizationsApi.md#listorganizations) | **GET** /v1/organizations | List organizations |
 
 
 
@@ -611,6 +612,70 @@ example().catch(console.error);
 |-------------|-------------|------------------|
 | **200** | Organization users |  -  |
 | **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listOrganizations
+
+> Array&lt;Organization&gt; listOrganizations()
+
+List organizations
+
+### Example
+
+```ts
+import {
+  Configuration,
+  OrganizationsApi,
+} from '';
+import type { ListOrganizationsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new OrganizationsApi(config);
+
+  try {
+    const data = await api.listOrganizations();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Array&lt;Organization&gt;**](Organization.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Organizations |  -  |
 | **401** | Missing or invalid authentication |  -  |
 | **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **500** | Internal server error |  -  |

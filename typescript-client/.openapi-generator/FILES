@@ -10,6 +10,7 @@ apis/WebinarsApi.ts
 apis/index.ts
 docs/AcceptInviteRequest.md
 docs/AdminApi.md
+docs/AuditEvent.md
 docs/AuthApi.md
 docs/BuildInfo.md
 docs/CalendarItem.md
@@ -31,6 +32,12 @@ docs/CreateSessionResponse.md
 docs/CreateTrainingRequest.md
 docs/CreateWebinarQnARequest.md
 docs/CreateWebinarRequest.md
+docs/CursorPageAuditEvent.md
+docs/CursorPageOrganization.md
+docs/CursorPageProduct.md
+docs/CursorPageTrainingRequest.md
+docs/CursorPageUser.md
+docs/CursorPageWebinar.md
 docs/ErrorResponse.md
 docs/EventsApi.md
 docs/HealthApi.md
@@ -59,6 +66,7 @@ docs/UserProduct.md
 docs/UserStatus.md
 docs/UsersApi.md
 docs/Webinar.md
+docs/WebinarIceServer.md
 docs/WebinarJoinResult.md
 docs/WebinarParticipantRole.md
 docs/WebinarQnAItem.md
@@ -67,6 +75,7 @@ docs/WebinarStatus.md
 docs/WebinarsApi.md
 index.ts
 models/AcceptInviteRequest.ts
+models/AuditEvent.ts
 models/BuildInfo.ts
 models/CalendarItem.ts
 models/CalendarManageScope.ts
@@ -87,6 +96,12 @@ models/CreateSessionResponse.ts
 models/CreateTrainingRequest.ts
 models/CreateWebinarQnARequest.ts
 models/CreateWebinarRequest.ts
+models/CursorPageAuditEvent.ts
+models/CursorPageOrganization.ts
+models/CursorPageProduct.ts
+models/CursorPageTrainingRequest.ts
+models/CursorPageUser.ts
+models/CursorPageWebinar.ts
 models/ErrorResponse.ts
 models/HealthResponse.ts
 models/Invite.ts
@@ -109,6 +124,7 @@ models/UserPersona.ts
 models/UserProduct.ts
 models/UserStatus.ts
 models/Webinar.ts
+models/WebinarIceServer.ts
 models/WebinarJoinResult.ts
 models/WebinarParticipantRole.ts
 models/WebinarQnAItem.ts

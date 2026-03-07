@@ -28,9 +28,10 @@ import {
  */
 export interface JoinWebinarRequest {
     /**
-     * 
+     * Deprecated and ignored by the backend; participant role is derived from caller permissions.
      * @type {WebinarParticipantRole}
      * @memberof JoinWebinarRequest
+     * @deprecated
      */
     participant_role?: WebinarParticipantRole;
 }

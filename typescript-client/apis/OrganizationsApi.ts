@@ -275,6 +275,27 @@ export interface OrganizationsApiInterface {
      */
     listOrganizationUsers(requestParameters: ListOrganizationUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OrganizationUser>>;
 
+    /**
+     * Creates request options for listOrganizations without sending the request
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    listOrganizationsRequestOpts(): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List organizations
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApiInterface
+     */
+    listOrganizationsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Organization>>>;
+
+    /**
+     * List organizations
+     */
+    listOrganizations(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Organization>>;
+
 }
 
 /**
@@ -739,6 +760,51 @@ export class OrganizationsApi extends runtime.BaseAPI implements OrganizationsAp
      */
     async listOrganizationUsers(requestParameters: ListOrganizationUsersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<OrganizationUser>> {
         const response = await this.listOrganizationUsersRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for listOrganizations without sending the request
+     */
+    async listOrganizationsRequestOpts(): Promise<runtime.RequestOpts> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/organizations`;
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List organizations
+     */
+    async listOrganizationsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Organization>>> {
+        const requestOptions = await this.listOrganizationsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(OrganizationFromJSON));
+    }
+
+    /**
+     * List organizations
+     */
+    async listOrganizations(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Organization>> {
+        const response = await this.listOrganizationsRaw(initOverrides);
         return await response.value();
     }
 

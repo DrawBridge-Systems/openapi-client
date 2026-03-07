@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './AcceptInviteRequest';
+export * from './AuditEvent';
 export * from './BuildInfo';
 export * from './CalendarItem';
 export * from './CalendarManageScope';
@@ -21,6 +22,12 @@ export * from './CreateSessionResponse';
 export * from './CreateTrainingRequest';
 export * from './CreateWebinarQnARequest';
 export * from './CreateWebinarRequest';
+export * from './CursorPageAuditEvent';
+export * from './CursorPageOrganization';
+export * from './CursorPageProduct';
+export * from './CursorPageTrainingRequest';
+export * from './CursorPageUser';
+export * from './CursorPageWebinar';
 export * from './ErrorResponse';
 export * from './HealthResponse';
 export * from './Invite';
@@ -43,6 +50,7 @@ export * from './UserPersona';
 export * from './UserProduct';
 export * from './UserStatus';
 export * from './Webinar';
+export * from './WebinarIceServer';
 export * from './WebinarJoinResult';
 export * from './WebinarParticipantRole';
 export * from './WebinarQnAItem';
