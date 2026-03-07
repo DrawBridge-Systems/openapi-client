@@ -621,7 +621,7 @@ example().catch(console.error);
 
 ## listProducts
 
-> Array&lt;Product&gt; listProducts()
+> Array&lt;Product&gt; listProducts(scope)
 
 List products
 
@@ -642,8 +642,13 @@ async function example() {
   });
   const api = new ProductsApi(config);
 
+  const body = {
+    // 'assigned' (optional)
+    scope: scope_example,
+  } satisfies ListProductsRequest;
+
   try {
-    const data = await api.listProducts();
+    const data = await api.listProducts(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -656,7 +661,10 @@ example().catch(console.error);
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **scope** | `assigned` |  | [Optional] [Defaults to `undefined`] [Enum: assigned] |
 
 ### Return type
 
@@ -676,6 +684,7 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Products |  -  |
+| **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
 | **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **500** | Internal server error |  -  |

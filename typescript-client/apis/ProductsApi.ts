@@ -76,6 +76,10 @@ export interface ListProductUsersRequest {
     id: string;
 }
 
+export interface ListProductsRequest {
+    scope?: ListProductsScopeEnum;
+}
+
 /**
  * ProductsApi - interface
  * 
@@ -277,24 +281,26 @@ export interface ProductsApiInterface {
 
     /**
      * Creates request options for listProducts without sending the request
+     * @param {'assigned'} [scope] 
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
      */
-    listProductsRequestOpts(): Promise<runtime.RequestOpts>;
+    listProductsRequestOpts(requestParameters: ListProductsRequest): Promise<runtime.RequestOpts>;
 
     /**
      * 
      * @summary List products
+     * @param {'assigned'} [scope] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
      */
-    listProductsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Product>>>;
+    listProductsRaw(requestParameters: ListProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Product>>>;
 
     /**
      * List products
      */
-    listProducts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Product>>;
+    listProducts(requestParameters: ListProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Product>>;
 
 }
 
@@ -766,8 +772,12 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     /**
      * Creates request options for listProducts without sending the request
      */
-    async listProductsRequestOpts(): Promise<runtime.RequestOpts> {
+    async listProductsRequestOpts(requestParameters: ListProductsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
+
+        if (requestParameters['scope'] != null) {
+            queryParameters['scope'] = requestParameters['scope'];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -793,8 +803,8 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     /**
      * List products
      */
-    async listProductsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Product>>> {
-        const requestOptions = await this.listProductsRequestOpts();
+    async listProductsRaw(requestParameters: ListProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Product>>> {
+        const requestOptions = await this.listProductsRequestOpts(requestParameters);
         const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ProductFromJSON));
@@ -803,9 +813,17 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     /**
      * List products
      */
-    async listProducts(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Product>> {
-        const response = await this.listProductsRaw(initOverrides);
+    async listProducts(requestParameters: ListProductsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Product>> {
+        const response = await this.listProductsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
 }
+
+/**
+ * @export
+ */
+export const ListProductsScopeEnum = {
+    Assigned: 'assigned'
+} as const;
+export type ListProductsScopeEnum = typeof ListProductsScopeEnum[keyof typeof ListProductsScopeEnum];

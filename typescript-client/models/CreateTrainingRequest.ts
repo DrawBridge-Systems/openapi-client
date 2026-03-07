@@ -24,13 +24,13 @@ export interface CreateTrainingRequest {
      * @type {string}
      * @memberof CreateTrainingRequest
      */
-    organization_id: string;
+    organization_id?: string;
     /**
      * 
      * @type {string}
      * @memberof CreateTrainingRequest
      */
-    product_id?: string;
+    product_id: string;
     /**
      * 
      * @type {string}
@@ -49,7 +49,7 @@ export interface CreateTrainingRequest {
  * Check if a given object implements the CreateTrainingRequest interface.
  */
 export function instanceOfCreateTrainingRequest(value: object): value is CreateTrainingRequest {
-    if (!('organization_id' in value) || value['organization_id'] === undefined) return false;
+    if (!('product_id' in value) || value['product_id'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
     if (!('message' in value) || value['message'] === undefined) return false;
     return true;
@@ -65,8 +65,8 @@ export function CreateTrainingRequestFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'organization_id': json['organization_id'],
-        'product_id': json['product_id'] == null ? undefined : json['product_id'],
+        'organization_id': json['organization_id'] == null ? undefined : json['organization_id'],
+        'product_id': json['product_id'],
         'title': json['title'],
         'message': json['message'],
     };

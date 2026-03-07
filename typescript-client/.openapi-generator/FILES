@@ -4,6 +4,7 @@ apis/EventsApi.ts
 apis/HealthApi.ts
 apis/OrganizationsApi.ts
 apis/ProductsApi.ts
+apis/RepsApi.ts
 apis/TrainingApi.ts
 apis/UsersApi.ts
 apis/WebinarsApi.ts
@@ -55,6 +56,9 @@ docs/OrganizationsApi.md
 docs/Product.md
 docs/ProductOrganization.md
 docs/ProductsApi.md
+docs/RepAssignedAccount.md
+docs/RepDirectoryEntry.md
+docs/RepsApi.md
 docs/TrainingApi.md
 docs/TrainingRequest.md
 docs/TrainingRequestStatus.md
@@ -117,6 +121,8 @@ models/OrganizationType.ts
 models/OrganizationUser.ts
 models/Product.ts
 models/ProductOrganization.ts
+models/RepAssignedAccount.ts
+models/RepDirectoryEntry.ts
 models/TrainingRequest.ts
 models/TrainingRequestStatus.ts
 models/UpdateAdminUserAuthorizationRequest.ts

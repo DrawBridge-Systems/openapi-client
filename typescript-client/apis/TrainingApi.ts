@@ -40,6 +40,7 @@ export interface ListTrainingRequestsRequest {
     submittedByUserId?: string;
     assignedUserId?: string;
     statuses?: string;
+    scope?: ListTrainingRequestsScopeEnum;
 }
 
 export interface UpdateTrainingRequestStatusOperationRequest {
@@ -83,6 +84,7 @@ export interface TrainingApiInterface {
      * @param {string} [submittedByUserId] 
      * @param {string} [assignedUserId] 
      * @param {string} [statuses] Comma-separated training request statuses
+     * @param {'assigned_products'} [scope] 
      * @throws {RequiredError}
      * @memberof TrainingApiInterface
      */
@@ -95,6 +97,7 @@ export interface TrainingApiInterface {
      * @param {string} [submittedByUserId] 
      * @param {string} [assignedUserId] 
      * @param {string} [statuses] Comma-separated training request statuses
+     * @param {'assigned_products'} [scope] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TrainingApiInterface
@@ -215,6 +218,10 @@ export class TrainingApi extends runtime.BaseAPI implements TrainingApiInterface
             queryParameters['statuses'] = requestParameters['statuses'];
         }
 
+        if (requestParameters['scope'] != null) {
+            queryParameters['scope'] = requestParameters['scope'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -318,3 +325,11 @@ export class TrainingApi extends runtime.BaseAPI implements TrainingApiInterface
     }
 
 }
+
+/**
+ * @export
+ */
+export const ListTrainingRequestsScopeEnum = {
+    AssignedProducts: 'assigned_products'
+} as const;
+export type ListTrainingRequestsScopeEnum = typeof ListTrainingRequestsScopeEnum[keyof typeof ListTrainingRequestsScopeEnum];

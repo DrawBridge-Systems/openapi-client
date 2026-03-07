@@ -41,6 +41,8 @@ export * from './OrganizationType';
 export * from './OrganizationUser';
 export * from './Product';
 export * from './ProductOrganization';
+export * from './RepAssignedAccount';
+export * from './RepDirectoryEntry';
 export * from './TrainingRequest';
 export * from './TrainingRequestStatus';
 export * from './UpdateAdminUserAuthorizationRequest';

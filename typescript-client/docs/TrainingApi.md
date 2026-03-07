@@ -86,7 +86,7 @@ example().catch(console.error);
 
 ## listTrainingRequests
 
-> Array&lt;TrainingRequest&gt; listTrainingRequests(organizationId, submittedByUserId, assignedUserId, statuses)
+> Array&lt;TrainingRequest&gt; listTrainingRequests(organizationId, submittedByUserId, assignedUserId, statuses, scope)
 
 List training requests
 
@@ -116,6 +116,8 @@ async function example() {
     assignedUserId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // string | Comma-separated training request statuses (optional)
     statuses: statuses_example,
+    // 'assigned_products' (optional)
+    scope: scope_example,
   } satisfies ListTrainingRequestsRequest;
 
   try {
@@ -139,6 +141,7 @@ example().catch(console.error);
 | **submittedByUserId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **assignedUserId** | `string` |  | [Optional] [Defaults to `undefined`] |
 | **statuses** | `string` | Comma-separated training request statuses | [Optional] [Defaults to `undefined`] |
+| **scope** | `assigned_products` |  | [Optional] [Defaults to `undefined`] [Enum: assigned_products] |
 
 ### Return type
 
