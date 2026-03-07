@@ -5,12 +5,14 @@ All URIs are relative to *https://api.bridge.med*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createAdminUser**](AdminApi.md#createadminuseroperation) | **POST** /v1/admin/users | Create admin user |
+| [**getAdminUserAuthorization**](AdminApi.md#getadminuserauthorization) | **GET** /v1/admin/users/{id}/authorization | Get user authorization state |
 | [**listAdminAuditEvents**](AdminApi.md#listadminauditevents) | **GET** /v1/admin/audit/events | List audit events (admin cursor view) |
 | [**listAdminOrganizations**](AdminApi.md#listadminorganizations) | **GET** /v1/admin/organizations | List organizations (admin cursor view) |
 | [**listAdminProducts**](AdminApi.md#listadminproducts) | **GET** /v1/admin/products | List products (admin cursor view) |
 | [**listAdminTrainingRequests**](AdminApi.md#listadmintrainingrequests) | **GET** /v1/admin/training/requests | List training requests (admin cursor view) |
 | [**listAdminUsers**](AdminApi.md#listadminusers) | **GET** /v1/admin/users | List users (admin cursor view) |
 | [**listAdminWebinars**](AdminApi.md#listadminwebinars) | **GET** /v1/admin/webinars | List webinars (admin cursor view) |
+| [**updateAdminUserAuthorization**](AdminApi.md#updateadminuserauthorizationoperation) | **PUT** /v1/admin/users/{id}/authorization | Replace user persona and permission overrides |
 
 
 
@@ -83,6 +85,80 @@ example().catch(console.error);
 | **401** | Missing or invalid authentication |  -  |
 | **403** | Authenticated caller is not allowed to perform this action |  -  |
 | **409** | Conflict with existing state |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## getAdminUserAuthorization
+
+> AdminUserAuthorization getAdminUserAuthorization(userID)
+
+Get user authorization state
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdminApi,
+} from '';
+import type { GetAdminUserAuthorizationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdminApi(config);
+
+  const body = {
+    // string
+    userID: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies GetAdminUserAuthorizationRequest;
+
+  try {
+    const data = await api.getAdminUserAuthorization(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **userID** | `string` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminUserAuthorization**](AdminUserAuthorization.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | User authorization state |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
@@ -614,6 +690,83 @@ example().catch(console.error);
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
 | **403** | Authenticated caller is not allowed to perform this action |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## updateAdminUserAuthorization
+
+> AdminUserAuthorization updateAdminUserAuthorization(userID, updateAdminUserAuthorizationRequest)
+
+Replace user persona and permission overrides
+
+### Example
+
+```ts
+import {
+  Configuration,
+  AdminApi,
+} from '';
+import type { UpdateAdminUserAuthorizationOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new AdminApi(config);
+
+  const body = {
+    // string
+    userID: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // UpdateAdminUserAuthorizationRequest
+    updateAdminUserAuthorizationRequest: ...,
+  } satisfies UpdateAdminUserAuthorizationOperationRequest;
+
+  try {
+    const data = await api.updateAdminUserAuthorization(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **userID** | `string` |  | [Defaults to `undefined`] |
+| **updateAdminUserAuthorizationRequest** | [UpdateAdminUserAuthorizationRequest](UpdateAdminUserAuthorizationRequest.md) |  | |
+
+### Return type
+
+[**AdminUserAuthorization**](AdminUserAuthorization.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Updated user authorization state |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
+| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)

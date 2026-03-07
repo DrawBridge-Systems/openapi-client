@@ -10,6 +10,7 @@ apis/WebinarsApi.ts
 apis/index.ts
 docs/AcceptInviteRequest.md
 docs/AdminApi.md
+docs/AdminUserAuthorization.md
 docs/AuditEvent.md
 docs/AuthApi.md
 docs/BuildInfo.md
@@ -57,6 +58,7 @@ docs/ProductsApi.md
 docs/TrainingApi.md
 docs/TrainingRequest.md
 docs/TrainingRequestStatus.md
+docs/UpdateAdminUserAuthorizationRequest.md
 docs/UpdateTrainingRequestStatusRequest.md
 docs/UpdateWebinarQnARequest.md
 docs/UpdateWebinarRequest.md
@@ -75,6 +77,7 @@ docs/WebinarStatus.md
 docs/WebinarsApi.md
 index.ts
 models/AcceptInviteRequest.ts
+models/AdminUserAuthorization.ts
 models/AuditEvent.ts
 models/BuildInfo.ts
 models/CalendarItem.ts
@@ -116,6 +119,7 @@ models/Product.ts
 models/ProductOrganization.ts
 models/TrainingRequest.ts
 models/TrainingRequestStatus.ts
+models/UpdateAdminUserAuthorizationRequest.ts
 models/UpdateTrainingRequestStatusRequest.ts
 models/UpdateWebinarQnARequest.ts
 models/UpdateWebinarRequest.ts

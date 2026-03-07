@@ -15,6 +15,7 @@
 
 import * as runtime from '../runtime';
 import type {
+  AdminUserAuthorization,
   CreateAdminUserRequest,
   CursorPageAuditEvent,
   CursorPageOrganization,
@@ -25,11 +26,14 @@ import type {
   ErrorResponse,
   OnboardingState,
   OrganizationType,
+  UpdateAdminUserAuthorizationRequest,
   User,
   UserPersona,
   UserStatus,
 } from '../models/index';
 import {
+    AdminUserAuthorizationFromJSON,
+    AdminUserAuthorizationToJSON,
     CreateAdminUserRequestFromJSON,
     CreateAdminUserRequestToJSON,
     CursorPageAuditEventFromJSON,
@@ -50,6 +54,8 @@ import {
     OnboardingStateToJSON,
     OrganizationTypeFromJSON,
     OrganizationTypeToJSON,
+    UpdateAdminUserAuthorizationRequestFromJSON,
+    UpdateAdminUserAuthorizationRequestToJSON,
     UserFromJSON,
     UserToJSON,
     UserPersonaFromJSON,
@@ -60,6 +66,10 @@ import {
 
 export interface CreateAdminUserOperationRequest {
     createAdminUserRequest: CreateAdminUserRequest;
+}
+
+export interface GetAdminUserAuthorizationRequest {
+    userID: string;
 }
 
 export interface ListAdminAuditEventsRequest {
@@ -117,6 +127,11 @@ export interface ListAdminWebinarsRequest {
     cursor?: string;
 }
 
+export interface UpdateAdminUserAuthorizationOperationRequest {
+    userID: string;
+    updateAdminUserAuthorizationRequest: UpdateAdminUserAuthorizationRequest;
+}
+
 /**
  * AdminApi - interface
  * 
@@ -146,6 +161,29 @@ export interface AdminApiInterface {
      * Create admin user
      */
     createAdminUser(requestParameters: CreateAdminUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<User>;
+
+    /**
+     * Creates request options for getAdminUserAuthorization without sending the request
+     * @param {string} userID 
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    getAdminUserAuthorizationRequestOpts(requestParameters: GetAdminUserAuthorizationRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Get user authorization state
+     * @param {string} userID 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    getAdminUserAuthorizationRaw(requestParameters: GetAdminUserAuthorizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminUserAuthorization>>;
+
+    /**
+     * Get user authorization state
+     */
+    getAdminUserAuthorization(requestParameters: GetAdminUserAuthorizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminUserAuthorization>;
 
     /**
      * Creates request options for listAdminAuditEvents without sending the request
@@ -347,6 +385,31 @@ export interface AdminApiInterface {
      */
     listAdminWebinars(requestParameters: ListAdminWebinarsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageWebinar>;
 
+    /**
+     * Creates request options for updateAdminUserAuthorization without sending the request
+     * @param {string} userID 
+     * @param {UpdateAdminUserAuthorizationRequest} updateAdminUserAuthorizationRequest 
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    updateAdminUserAuthorizationRequestOpts(requestParameters: UpdateAdminUserAuthorizationOperationRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Replace user persona and permission overrides
+     * @param {string} userID 
+     * @param {UpdateAdminUserAuthorizationRequest} updateAdminUserAuthorizationRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApiInterface
+     */
+    updateAdminUserAuthorizationRaw(requestParameters: UpdateAdminUserAuthorizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminUserAuthorization>>;
+
+    /**
+     * Replace user persona and permission overrides
+     */
+    updateAdminUserAuthorization(requestParameters: UpdateAdminUserAuthorizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminUserAuthorization>;
+
 }
 
 /**
@@ -406,6 +469,59 @@ export class AdminApi extends runtime.BaseAPI implements AdminApiInterface {
      */
     async createAdminUser(requestParameters: CreateAdminUserOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<User> {
         const response = await this.createAdminUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for getAdminUserAuthorization without sending the request
+     */
+    async getAdminUserAuthorizationRequestOpts(requestParameters: GetAdminUserAuthorizationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['userID'] == null) {
+            throw new runtime.RequiredError(
+                'userID',
+                'Required parameter "userID" was null or undefined when calling getAdminUserAuthorization().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/users/{id}/authorization`;
+        urlPath = urlPath.replace(`{${"userID"}}`, encodeURIComponent(String(requestParameters['userID'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get user authorization state
+     */
+    async getAdminUserAuthorizationRaw(requestParameters: GetAdminUserAuthorizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminUserAuthorization>> {
+        const requestOptions = await this.getAdminUserAuthorizationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminUserAuthorizationFromJSON(jsonValue));
+    }
+
+    /**
+     * Get user authorization state
+     */
+    async getAdminUserAuthorization(requestParameters: GetAdminUserAuthorizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminUserAuthorization> {
+        const response = await this.getAdminUserAuthorizationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -824,6 +940,69 @@ export class AdminApi extends runtime.BaseAPI implements AdminApiInterface {
      */
     async listAdminWebinars(requestParameters: ListAdminWebinarsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CursorPageWebinar> {
         const response = await this.listAdminWebinarsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateAdminUserAuthorization without sending the request
+     */
+    async updateAdminUserAuthorizationRequestOpts(requestParameters: UpdateAdminUserAuthorizationOperationRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['userID'] == null) {
+            throw new runtime.RequiredError(
+                'userID',
+                'Required parameter "userID" was null or undefined when calling updateAdminUserAuthorization().'
+            );
+        }
+
+        if (requestParameters['updateAdminUserAuthorizationRequest'] == null) {
+            throw new runtime.RequiredError(
+                'updateAdminUserAuthorizationRequest',
+                'Required parameter "updateAdminUserAuthorizationRequest" was null or undefined when calling updateAdminUserAuthorization().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/admin/users/{id}/authorization`;
+        urlPath = urlPath.replace(`{${"userID"}}`, encodeURIComponent(String(requestParameters['userID'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateAdminUserAuthorizationRequestToJSON(requestParameters['updateAdminUserAuthorizationRequest']),
+        };
+    }
+
+    /**
+     * Replace user persona and permission overrides
+     */
+    async updateAdminUserAuthorizationRaw(requestParameters: UpdateAdminUserAuthorizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminUserAuthorization>> {
+        const requestOptions = await this.updateAdminUserAuthorizationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminUserAuthorizationFromJSON(jsonValue));
+    }
+
+    /**
+     * Replace user persona and permission overrides
+     */
+    async updateAdminUserAuthorization(requestParameters: UpdateAdminUserAuthorizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminUserAuthorization> {
+        const response = await this.updateAdminUserAuthorizationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

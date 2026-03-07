@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './AcceptInviteRequest';
+export * from './AdminUserAuthorization';
 export * from './AuditEvent';
 export * from './BuildInfo';
 export * from './CalendarItem';
@@ -42,6 +43,7 @@ export * from './Product';
 export * from './ProductOrganization';
 export * from './TrainingRequest';
 export * from './TrainingRequestStatus';
+export * from './UpdateAdminUserAuthorizationRequest';
 export * from './UpdateTrainingRequestStatusRequest';
 export * from './UpdateWebinarQnARequest';
 export * from './UpdateWebinarRequest';
