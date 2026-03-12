@@ -17,19 +17,60 @@ import * as runtime from '../runtime';
 import type {
   ErrorResponse,
   RepAssignedAccount,
+  RepAvailabilityProfile,
+  RepAvailabilityWindow,
   RepDirectoryEntry,
+  UpsertRepAvailabilityProfileRequest,
+  UpsertRepAvailabilityWindowRequest,
 } from '../models/index';
 import {
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
     RepAssignedAccountFromJSON,
     RepAssignedAccountToJSON,
+    RepAvailabilityProfileFromJSON,
+    RepAvailabilityProfileToJSON,
+    RepAvailabilityWindowFromJSON,
+    RepAvailabilityWindowToJSON,
     RepDirectoryEntryFromJSON,
     RepDirectoryEntryToJSON,
+    UpsertRepAvailabilityProfileRequestFromJSON,
+    UpsertRepAvailabilityProfileRequestToJSON,
+    UpsertRepAvailabilityWindowRequestFromJSON,
+    UpsertRepAvailabilityWindowRequestToJSON,
 } from '../models/index';
+
+export interface CreateRepAvailabilityWindowRequest {
+    repUserID: string;
+    upsertRepAvailabilityWindowRequest: UpsertRepAvailabilityWindowRequest;
+}
+
+export interface DeleteRepAvailabilityWindowRequest {
+    repUserID: string;
+    windowID: string;
+}
+
+export interface GetRepAvailabilityRequest {
+    repUserID: string;
+}
 
 export interface ListRepAccountsRequest {
     scope: ListRepAccountsScopeEnum;
+}
+
+export interface ListRepAvailabilityWindowsRequest {
+    repUserID: string;
+}
+
+export interface PutRepAvailabilityRequest {
+    repUserID: string;
+    upsertRepAvailabilityProfileRequest: UpsertRepAvailabilityProfileRequest;
+}
+
+export interface UpdateRepAvailabilityWindowRequest {
+    repUserID: string;
+    windowID: string;
+    upsertRepAvailabilityWindowRequest: UpsertRepAvailabilityWindowRequest;
 }
 
 /**
@@ -39,6 +80,79 @@ export interface ListRepAccountsRequest {
  * @interface RepsApiInterface
  */
 export interface RepsApiInterface {
+    /**
+     * Creates request options for createRepAvailabilityWindow without sending the request
+     * @param {string} repUserID 
+     * @param {UpsertRepAvailabilityWindowRequest} upsertRepAvailabilityWindowRequest 
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    createRepAvailabilityWindowRequestOpts(requestParameters: CreateRepAvailabilityWindowRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Create representative availability window
+     * @param {string} repUserID 
+     * @param {UpsertRepAvailabilityWindowRequest} upsertRepAvailabilityWindowRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    createRepAvailabilityWindowRaw(requestParameters: CreateRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepAvailabilityWindow>>;
+
+    /**
+     * Create representative availability window
+     */
+    createRepAvailabilityWindow(requestParameters: CreateRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RepAvailabilityWindow>;
+
+    /**
+     * Creates request options for deleteRepAvailabilityWindow without sending the request
+     * @param {string} repUserID 
+     * @param {string} windowID 
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    deleteRepAvailabilityWindowRequestOpts(requestParameters: DeleteRepAvailabilityWindowRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Delete representative availability window
+     * @param {string} repUserID 
+     * @param {string} windowID 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    deleteRepAvailabilityWindowRaw(requestParameters: DeleteRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Delete representative availability window
+     */
+    deleteRepAvailabilityWindow(requestParameters: DeleteRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * Creates request options for getRepAvailability without sending the request
+     * @param {string} repUserID 
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    getRepAvailabilityRequestOpts(requestParameters: GetRepAvailabilityRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Get representative availability profile
+     * @param {string} repUserID 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    getRepAvailabilityRaw(requestParameters: GetRepAvailabilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepAvailabilityProfile>>;
+
+    /**
+     * Get representative availability profile
+     */
+    getRepAvailability(requestParameters: GetRepAvailabilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RepAvailabilityProfile>;
+
     /**
      * Creates request options for listRepAccounts without sending the request
      * @param {'assigned'} scope 
@@ -63,6 +177,29 @@ export interface RepsApiInterface {
     listRepAccounts(requestParameters: ListRepAccountsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RepAssignedAccount>>;
 
     /**
+     * Creates request options for listRepAvailabilityWindows without sending the request
+     * @param {string} repUserID 
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    listRepAvailabilityWindowsRequestOpts(requestParameters: ListRepAvailabilityWindowsRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary List representative availability windows
+     * @param {string} repUserID 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    listRepAvailabilityWindowsRaw(requestParameters: ListRepAvailabilityWindowsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<RepAvailabilityWindow>>>;
+
+    /**
+     * List representative availability windows
+     */
+    listRepAvailabilityWindows(requestParameters: ListRepAvailabilityWindowsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RepAvailabilityWindow>>;
+
+    /**
      * Creates request options for listReps without sending the request
      * @throws {RequiredError}
      * @memberof RepsApiInterface
@@ -83,12 +220,240 @@ export interface RepsApiInterface {
      */
     listReps(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RepDirectoryEntry>>;
 
+    /**
+     * Creates request options for putRepAvailability without sending the request
+     * @param {string} repUserID 
+     * @param {UpsertRepAvailabilityProfileRequest} upsertRepAvailabilityProfileRequest 
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    putRepAvailabilityRequestOpts(requestParameters: PutRepAvailabilityRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Upsert representative availability profile
+     * @param {string} repUserID 
+     * @param {UpsertRepAvailabilityProfileRequest} upsertRepAvailabilityProfileRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    putRepAvailabilityRaw(requestParameters: PutRepAvailabilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepAvailabilityProfile>>;
+
+    /**
+     * Upsert representative availability profile
+     */
+    putRepAvailability(requestParameters: PutRepAvailabilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RepAvailabilityProfile>;
+
+    /**
+     * Creates request options for updateRepAvailabilityWindow without sending the request
+     * @param {string} repUserID 
+     * @param {string} windowID 
+     * @param {UpsertRepAvailabilityWindowRequest} upsertRepAvailabilityWindowRequest 
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    updateRepAvailabilityWindowRequestOpts(requestParameters: UpdateRepAvailabilityWindowRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * 
+     * @summary Update representative availability window
+     * @param {string} repUserID 
+     * @param {string} windowID 
+     * @param {UpsertRepAvailabilityWindowRequest} upsertRepAvailabilityWindowRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RepsApiInterface
+     */
+    updateRepAvailabilityWindowRaw(requestParameters: UpdateRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepAvailabilityWindow>>;
+
+    /**
+     * Update representative availability window
+     */
+    updateRepAvailabilityWindow(requestParameters: UpdateRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RepAvailabilityWindow>;
+
 }
 
 /**
  * 
  */
 export class RepsApi extends runtime.BaseAPI implements RepsApiInterface {
+
+    /**
+     * Creates request options for createRepAvailabilityWindow without sending the request
+     */
+    async createRepAvailabilityWindowRequestOpts(requestParameters: CreateRepAvailabilityWindowRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['repUserID'] == null) {
+            throw new runtime.RequiredError(
+                'repUserID',
+                'Required parameter "repUserID" was null or undefined when calling createRepAvailabilityWindow().'
+            );
+        }
+
+        if (requestParameters['upsertRepAvailabilityWindowRequest'] == null) {
+            throw new runtime.RequiredError(
+                'upsertRepAvailabilityWindowRequest',
+                'Required parameter "upsertRepAvailabilityWindowRequest" was null or undefined when calling createRepAvailabilityWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reps/{repUserID}/availability/windows`;
+        urlPath = urlPath.replace(`{${"repUserID"}}`, encodeURIComponent(String(requestParameters['repUserID'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpsertRepAvailabilityWindowRequestToJSON(requestParameters['upsertRepAvailabilityWindowRequest']),
+        };
+    }
+
+    /**
+     * Create representative availability window
+     */
+    async createRepAvailabilityWindowRaw(requestParameters: CreateRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepAvailabilityWindow>> {
+        const requestOptions = await this.createRepAvailabilityWindowRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RepAvailabilityWindowFromJSON(jsonValue));
+    }
+
+    /**
+     * Create representative availability window
+     */
+    async createRepAvailabilityWindow(requestParameters: CreateRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RepAvailabilityWindow> {
+        const response = await this.createRepAvailabilityWindowRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for deleteRepAvailabilityWindow without sending the request
+     */
+    async deleteRepAvailabilityWindowRequestOpts(requestParameters: DeleteRepAvailabilityWindowRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['repUserID'] == null) {
+            throw new runtime.RequiredError(
+                'repUserID',
+                'Required parameter "repUserID" was null or undefined when calling deleteRepAvailabilityWindow().'
+            );
+        }
+
+        if (requestParameters['windowID'] == null) {
+            throw new runtime.RequiredError(
+                'windowID',
+                'Required parameter "windowID" was null or undefined when calling deleteRepAvailabilityWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reps/{repUserID}/availability/windows/{windowID}`;
+        urlPath = urlPath.replace(`{${"repUserID"}}`, encodeURIComponent(String(requestParameters['repUserID'])));
+        urlPath = urlPath.replace(`{${"windowID"}}`, encodeURIComponent(String(requestParameters['windowID'])));
+
+        return {
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete representative availability window
+     */
+    async deleteRepAvailabilityWindowRaw(requestParameters: DeleteRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.deleteRepAvailabilityWindowRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete representative availability window
+     */
+    async deleteRepAvailabilityWindow(requestParameters: DeleteRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteRepAvailabilityWindowRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Creates request options for getRepAvailability without sending the request
+     */
+    async getRepAvailabilityRequestOpts(requestParameters: GetRepAvailabilityRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['repUserID'] == null) {
+            throw new runtime.RequiredError(
+                'repUserID',
+                'Required parameter "repUserID" was null or undefined when calling getRepAvailability().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reps/{repUserID}/availability`;
+        urlPath = urlPath.replace(`{${"repUserID"}}`, encodeURIComponent(String(requestParameters['repUserID'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get representative availability profile
+     */
+    async getRepAvailabilityRaw(requestParameters: GetRepAvailabilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepAvailabilityProfile>> {
+        const requestOptions = await this.getRepAvailabilityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RepAvailabilityProfileFromJSON(jsonValue));
+    }
+
+    /**
+     * Get representative availability profile
+     */
+    async getRepAvailability(requestParameters: GetRepAvailabilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RepAvailabilityProfile> {
+        const response = await this.getRepAvailabilityRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Creates request options for listRepAccounts without sending the request
@@ -147,6 +512,59 @@ export class RepsApi extends runtime.BaseAPI implements RepsApiInterface {
     }
 
     /**
+     * Creates request options for listRepAvailabilityWindows without sending the request
+     */
+    async listRepAvailabilityWindowsRequestOpts(requestParameters: ListRepAvailabilityWindowsRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['repUserID'] == null) {
+            throw new runtime.RequiredError(
+                'repUserID',
+                'Required parameter "repUserID" was null or undefined when calling listRepAvailabilityWindows().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reps/{repUserID}/availability/windows`;
+        urlPath = urlPath.replace(`{${"repUserID"}}`, encodeURIComponent(String(requestParameters['repUserID'])));
+
+        return {
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List representative availability windows
+     */
+    async listRepAvailabilityWindowsRaw(requestParameters: ListRepAvailabilityWindowsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<RepAvailabilityWindow>>> {
+        const requestOptions = await this.listRepAvailabilityWindowsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RepAvailabilityWindowFromJSON));
+    }
+
+    /**
+     * List representative availability windows
+     */
+    async listRepAvailabilityWindows(requestParameters: ListRepAvailabilityWindowsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RepAvailabilityWindow>> {
+        const response = await this.listRepAvailabilityWindowsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Creates request options for listReps without sending the request
      */
     async listRepsRequestOpts(): Promise<runtime.RequestOpts> {
@@ -188,6 +606,140 @@ export class RepsApi extends runtime.BaseAPI implements RepsApiInterface {
      */
     async listReps(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<RepDirectoryEntry>> {
         const response = await this.listRepsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for putRepAvailability without sending the request
+     */
+    async putRepAvailabilityRequestOpts(requestParameters: PutRepAvailabilityRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['repUserID'] == null) {
+            throw new runtime.RequiredError(
+                'repUserID',
+                'Required parameter "repUserID" was null or undefined when calling putRepAvailability().'
+            );
+        }
+
+        if (requestParameters['upsertRepAvailabilityProfileRequest'] == null) {
+            throw new runtime.RequiredError(
+                'upsertRepAvailabilityProfileRequest',
+                'Required parameter "upsertRepAvailabilityProfileRequest" was null or undefined when calling putRepAvailability().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reps/{repUserID}/availability`;
+        urlPath = urlPath.replace(`{${"repUserID"}}`, encodeURIComponent(String(requestParameters['repUserID'])));
+
+        return {
+            path: urlPath,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpsertRepAvailabilityProfileRequestToJSON(requestParameters['upsertRepAvailabilityProfileRequest']),
+        };
+    }
+
+    /**
+     * Upsert representative availability profile
+     */
+    async putRepAvailabilityRaw(requestParameters: PutRepAvailabilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepAvailabilityProfile>> {
+        const requestOptions = await this.putRepAvailabilityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RepAvailabilityProfileFromJSON(jsonValue));
+    }
+
+    /**
+     * Upsert representative availability profile
+     */
+    async putRepAvailability(requestParameters: PutRepAvailabilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RepAvailabilityProfile> {
+        const response = await this.putRepAvailabilityRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Creates request options for updateRepAvailabilityWindow without sending the request
+     */
+    async updateRepAvailabilityWindowRequestOpts(requestParameters: UpdateRepAvailabilityWindowRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['repUserID'] == null) {
+            throw new runtime.RequiredError(
+                'repUserID',
+                'Required parameter "repUserID" was null or undefined when calling updateRepAvailabilityWindow().'
+            );
+        }
+
+        if (requestParameters['windowID'] == null) {
+            throw new runtime.RequiredError(
+                'windowID',
+                'Required parameter "windowID" was null or undefined when calling updateRepAvailabilityWindow().'
+            );
+        }
+
+        if (requestParameters['upsertRepAvailabilityWindowRequest'] == null) {
+            throw new runtime.RequiredError(
+                'upsertRepAvailabilityWindowRequest',
+                'Required parameter "upsertRepAvailabilityWindowRequest" was null or undefined when calling updateRepAvailabilityWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearerAuth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/v1/reps/{repUserID}/availability/windows/{windowID}`;
+        urlPath = urlPath.replace(`{${"repUserID"}}`, encodeURIComponent(String(requestParameters['repUserID'])));
+        urlPath = urlPath.replace(`{${"windowID"}}`, encodeURIComponent(String(requestParameters['windowID'])));
+
+        return {
+            path: urlPath,
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpsertRepAvailabilityWindowRequestToJSON(requestParameters['upsertRepAvailabilityWindowRequest']),
+        };
+    }
+
+    /**
+     * Update representative availability window
+     */
+    async updateRepAvailabilityWindowRaw(requestParameters: UpdateRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RepAvailabilityWindow>> {
+        const requestOptions = await this.updateRepAvailabilityWindowRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RepAvailabilityWindowFromJSON(jsonValue));
+    }
+
+    /**
+     * Update representative availability window
+     */
+    async updateRepAvailabilityWindow(requestParameters: UpdateRepAvailabilityWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RepAvailabilityWindow> {
+        const response = await this.updateRepAvailabilityWindowRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

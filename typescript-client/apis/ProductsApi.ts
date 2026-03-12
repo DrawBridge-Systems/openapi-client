@@ -120,7 +120,7 @@ export interface ProductsApiInterface {
     createProductOrganizationRequestOpts(requestParameters: CreateProductOrganizationOperationRequest): Promise<runtime.RequestOpts>;
 
     /**
-     * 
+     * Representative callers can only assign products already assigned to themselves and only to directly supported hospital or health_system organizations.
      * @summary Add organization to product
      * @param {string} id 
      * @param {CreateProductOrganizationRequest} createProductOrganizationRequest 
@@ -131,6 +131,7 @@ export interface ProductsApiInterface {
     createProductOrganizationRaw(requestParameters: CreateProductOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ProductOrganization>>;
 
     /**
+     * Representative callers can only assign products already assigned to themselves and only to directly supported hospital or health_system organizations.
      * Add organization to product
      */
     createProductOrganization(requestParameters: CreateProductOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ProductOrganization>;
@@ -170,7 +171,7 @@ export interface ProductsApiInterface {
     deleteProductOrganizationRequestOpts(requestParameters: DeleteProductOrganizationRequest): Promise<runtime.RequestOpts>;
 
     /**
-     * 
+     * Representative callers can only remove assignments for products already assigned to themselves and only from directly supported hospital or health_system organizations.
      * @summary Remove organization from product
      * @param {string} id 
      * @param {string} organizationID 
@@ -181,6 +182,7 @@ export interface ProductsApiInterface {
     deleteProductOrganizationRaw(requestParameters: DeleteProductOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
 
     /**
+     * Representative callers can only remove assignments for products already assigned to themselves and only from directly supported hospital or health_system organizations.
      * Remove organization from product
      */
     deleteProductOrganization(requestParameters: DeleteProductOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
@@ -281,7 +283,7 @@ export interface ProductsApiInterface {
 
     /**
      * Creates request options for listProducts without sending the request
-     * @param {'assigned'} [scope] 
+     * @param {'assigned' | 'assigned_organization'} [scope] 
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
      */
@@ -290,7 +292,7 @@ export interface ProductsApiInterface {
     /**
      * 
      * @summary List products
-     * @param {'assigned'} [scope] 
+     * @param {'assigned' | 'assigned_organization'} [scope] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProductsApiInterface
@@ -410,6 +412,7 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     }
 
     /**
+     * Representative callers can only assign products already assigned to themselves and only to directly supported hospital or health_system organizations.
      * Add organization to product
      */
     async createProductOrganizationRaw(requestParameters: CreateProductOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ProductOrganization>> {
@@ -420,6 +423,7 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     }
 
     /**
+     * Representative callers can only assign products already assigned to themselves and only to directly supported hospital or health_system organizations.
      * Add organization to product
      */
     async createProductOrganization(requestParameters: CreateProductOrganizationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ProductOrganization> {
@@ -534,6 +538,7 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     }
 
     /**
+     * Representative callers can only remove assignments for products already assigned to themselves and only from directly supported hospital or health_system organizations.
      * Remove organization from product
      */
     async deleteProductOrganizationRaw(requestParameters: DeleteProductOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -544,6 +549,7 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
     }
 
     /**
+     * Representative callers can only remove assignments for products already assigned to themselves and only from directly supported hospital or health_system organizations.
      * Remove organization from product
      */
     async deleteProductOrganization(requestParameters: DeleteProductOrganizationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -824,6 +830,7 @@ export class ProductsApi extends runtime.BaseAPI implements ProductsApiInterface
  * @export
  */
 export const ListProductsScopeEnum = {
-    Assigned: 'assigned'
+    Assigned: 'assigned',
+    AssignedOrganization: 'assigned_organization'
 } as const;
 export type ListProductsScopeEnum = typeof ListProductsScopeEnum[keyof typeof ListProductsScopeEnum];

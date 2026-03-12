@@ -6,11 +6,14 @@ All URIs are relative to *https://api.bridge.med*
 |------------- | ------------- | -------------|
 | [**createOrganization**](OrganizationsApi.md#createorganizationoperation) | **POST** /v1/organizations | Create organization |
 | [**createOrganizationRelation**](OrganizationsApi.md#createorganizationrelationoperation) | **POST** /v1/organizations/{id}/relations | Create organization relation |
+| [**createOrganizationRep**](OrganizationsApi.md#createorganizationrepoperation) | **POST** /v1/organizations/{id}/reps | Assign representative to organization |
 | [**createOrganizationUser**](OrganizationsApi.md#createorganizationuseroperation) | **POST** /v1/organizations/{id}/users | Add user to organization |
 | [**deleteOrganizationRelation**](OrganizationsApi.md#deleteorganizationrelation) | **DELETE** /v1/organizations/{id}/relations/{childOrganizationID} | Delete organization relation |
+| [**deleteOrganizationRep**](OrganizationsApi.md#deleteorganizationrep) | **DELETE** /v1/organizations/{id}/reps/{userID} | Remove representative from organization |
 | [**deleteOrganizationUser**](OrganizationsApi.md#deleteorganizationuser) | **DELETE** /v1/organizations/{id}/users/{userID} | Remove user from organization |
 | [**getOrganization**](OrganizationsApi.md#getorganization) | **GET** /v1/organizations/{id} | Get organization |
 | [**listOrganizationRelations**](OrganizationsApi.md#listorganizationrelations) | **GET** /v1/organizations/{id}/relations | List organization relations |
+| [**listOrganizationReps**](OrganizationsApi.md#listorganizationreps) | **GET** /v1/organizations/{id}/reps | List organization representative assignments |
 | [**listOrganizationUsers**](OrganizationsApi.md#listorganizationusers) | **GET** /v1/organizations/{id}/users | List organization users |
 | [**listOrganizations**](OrganizationsApi.md#listorganizations) | **GET** /v1/organizations | List organizations |
 
@@ -167,6 +170,84 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
+## createOrganizationRep
+
+> OrganizationRep createOrganizationRep(id, createOrganizationRepRequest)
+
+Assign representative to organization
+
+### Example
+
+```ts
+import {
+  Configuration,
+  OrganizationsApi,
+} from '';
+import type { CreateOrganizationRepOperationRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new OrganizationsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // CreateOrganizationRepRequest
+    createOrganizationRepRequest: ...,
+  } satisfies CreateOrganizationRepOperationRequest;
+
+  try {
+    const data = await api.createOrganizationRep(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **createOrganizationRepRequest** | [CreateOrganizationRepRequest](CreateOrganizationRepRequest.md) |  | |
+
+### Return type
+
+[**OrganizationRep**](OrganizationRep.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Organization representative assignment created |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
+| **404** | Resource not found |  -  |
+| **409** | Conflict with existing state |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
 ## createOrganizationUser
 
 > OrganizationUser createOrganizationUser(id, createOrganizationUserRequest)
@@ -313,6 +394,83 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | Organization relation removed |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## deleteOrganizationRep
+
+> deleteOrganizationRep(id, userID)
+
+Remove representative from organization
+
+### Example
+
+```ts
+import {
+  Configuration,
+  OrganizationsApi,
+} from '';
+import type { DeleteOrganizationRepRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new OrganizationsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    userID: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies DeleteOrganizationRepRequest;
+
+  try {
+    const data = await api.deleteOrganizationRep(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+| **userID** | `string` |  | [Defaults to `undefined`] |
+
+### Return type
+
+`void` (Empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Organization representative assignment removed |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
 | **403** | Authenticated caller is not allowed to perform this action |  -  |
@@ -538,6 +696,79 @@ example().catch(console.error);
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Organization relations |  -  |
+| **400** | Validation or request shape error |  -  |
+| **401** | Missing or invalid authentication |  -  |
+| **403** | Authenticated caller is not allowed to perform this action |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## listOrganizationReps
+
+> Array&lt;OrganizationRep&gt; listOrganizationReps(id)
+
+List organization representative assignments
+
+### Example
+
+```ts
+import {
+  Configuration,
+  OrganizationsApi,
+} from '';
+import type { ListOrganizationRepsRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearerAuth
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new OrganizationsApi(config);
+
+  const body = {
+    // string
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ListOrganizationRepsRequest;
+
+  try {
+    const data = await api.listOrganizationReps(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**Array&lt;OrganizationRep&gt;**](OrganizationRep.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Organization representative assignments |  -  |
 | **400** | Validation or request shape error |  -  |
 | **401** | Missing or invalid authentication |  -  |
 | **403** | Authenticated caller is not allowed to perform this action |  -  |

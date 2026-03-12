@@ -95,6 +95,8 @@ example().catch(console.error);
 
 Add organization to product
 
+Representative callers can only assign products already assigned to themselves and only to directly supported hospital or health_system organizations.
+
 ### Example
 
 ```ts
@@ -250,6 +252,8 @@ example().catch(console.error);
 > deleteProductOrganization(id, organizationID)
 
 Remove organization from product
+
+Representative callers can only remove assignments for products already assigned to themselves and only from directly supported hospital or health_system organizations.
 
 ### Example
 
@@ -643,7 +647,7 @@ async function example() {
   const api = new ProductsApi(config);
 
   const body = {
-    // 'assigned' (optional)
+    // 'assigned' | 'assigned_organization' (optional)
     scope: scope_example,
   } satisfies ListProductsRequest;
 
@@ -664,7 +668,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **scope** | `assigned` |  | [Optional] [Defaults to `undefined`] [Enum: assigned] |
+| **scope** | `assigned`, `assigned_organization` |  | [Optional] [Defaults to `undefined`] [Enum: assigned, assigned_organization] |
 
 ### Return type
 
